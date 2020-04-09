@@ -16,14 +16,7 @@ class CarList extends React.Component {
     const filter = this.props.store.filter;
     const filteredCars = this.props.store.filteredCars;
     const carsList = filteredCars.map((car) => {
-      return (
-        <CarItem
-          key={car.id}
-          make={car.make}
-          model={car.model}
-          className="car"
-        />
-      );
+      return <CarItem key={car.id} make={car.make} model={car.model} />;
     });
     return (
       <div>
@@ -33,9 +26,9 @@ class CarList extends React.Component {
           className="filter"
         />
 
-        <Sort className="sort" />
+        <Sort />
 
-        <li className="cars-list">{carsList}</li>
+        <li>{carsList}</li>
       </div>
     );
   }
