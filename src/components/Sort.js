@@ -1,19 +1,18 @@
-import React from "react"
+import React from "react";
 
-
-const Sort = () => {
-
-
-    return(
-        <div>
-           <label>Choose a make:</label>
-           <select>
-               <option value="Alfa Romeo">Alfa Romeo</option>
-               <option value="BMW">BMW</option>
-               </select> 
-        </div>
-    )
-}
-
+const Sort = (props) => {
+  return (
+    <div>
+      <label>Choose a make:</label>
+      <select id="sorting" onChange={props.onChange} defaultValue={"default"}>
+        <option disabled value="default">
+          Choose a make...
+        </option>
+        <option>Alfa Romeo</option>
+        <option>BMW</option>
+      </select>
+    </div>
+  );
+};
 
 export default Sort;

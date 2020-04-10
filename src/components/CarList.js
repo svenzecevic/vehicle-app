@@ -11,6 +11,12 @@ class CarList extends React.Component {
   filter(e) {
     this.props.store.filter = e.target.value;
   }
+  sort() {
+    let e = document.getElementById("sorting");
+    let result = e.options[e.selectedIndex].text;
+    this.props.store.sort = result;
+  }
+
   render() {
     const cars = this.props.store.caritems;
     const filter = this.props.store.filter;
@@ -20,13 +26,9 @@ class CarList extends React.Component {
     });
     return (
       <div>
-        <Filter
-          value={filter}
-          onChange={this.filter.bind(this)}
-          className="filter"
-        />
+        <Filter value={filter} onChange={this.filter.bind(this)} />
 
-        <Sort />
+        <Sort onChange={this.sort.bind(this)} />
 
         <li>{carsList}</li>
       </div>
