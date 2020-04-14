@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import CarItem from "./CarItem";
-import Filter from "./Filter";
-import Sort from "./Sort";
+import CarItem from "../components/CarItem/CarItem";
+import Filter from "../components/Filter/Filter";
+import Sort from "../components/Sort/Sort";
 import "./CarList.css";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
