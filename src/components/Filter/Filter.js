@@ -4,8 +4,8 @@ const Sort = (props) => {
   return (
     <div>
       <label>Choose a make:</label>
-      <select onChange={props.onChange}>
-        <option disabled value="default" selected>
+      <select onChange={props.onChange} defaultValue={"default"}>
+        <option disabled value="default">
           Choose a make...
         </option>
         <option>Alfa Romeo</option>
