@@ -1,16 +1,18 @@
-import React from "react"
+import React from "react";
 
+const Sort = (props) => {
+  return (
+    <div>
+      <label>Choose a make:</label>
+      <select onChange={props.onChange}>
+        <option disabled value="default" selected>
+          Choose a make...
+        </option>
+        <option>Alfa Romeo</option>
+        <option>BMW</option>
+      </select>
+    </div>
+  );
+};
 
-
-const Filter = (props) => {
-
-    return (
-        <div className="filter">
-        <h3>Search cars:</h3>
-        <input value={props.value} onChange={props.onChange} />
-        </div>
-    )
-}
-
-
-export default Filter;
+export default Sort;

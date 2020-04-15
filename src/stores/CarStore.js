@@ -52,24 +52,13 @@ class CarsStore {
       model: "series 7",
     },
   ];
+
   @observable filter = [];
-  @observable sort = [];
   @computed get filteredCars() {
     let filterMatch = new RegExp(this.filter, "i");
-    let sortMatch = new RegExp(this.sort, "i");
-
-    if (this.sort.length > 0) {
-      return this.caritems.filter(
-        (car) => !this.sort || sortMatch.test(car.make)
-      );
-    } else {
-      return this.caritems.filter(
-        (car) =>
-          !this.filter ||
-          filterMatch.test(car.make) ||
-          filterMatch.test(car.model)
-      );
-    }
+    return this.caritems.filter(
+      (car) => !this.filter || filterMatch.test(car.make)
+    );
   }
 }
 
