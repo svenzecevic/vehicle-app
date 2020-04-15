@@ -2,20 +2,28 @@ import React, { Component } from "react";
 import CarItem from "../components/CarItem/CarItem";
 import Filter from "../components/Filter/Filter";
 import "./CarList.css";
+import { computed, observable } from "mobx";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
 
 @observer
 class CarList extends React.Component {
+  @observable filterState = [];
+
+  @computed get filteredCars() {
+    let filterMatch = new RegExp(this.filterState, "i");
+    return this.props.store.caritems.filter(
+      (car) => !this.filterState || filterMatch.test(car.make)
+    );
+  }
   filter(e) {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
-    this.props.store.filter = label;
+    this.filterState = label;
   }
 
   render() {
-    const filteredCars = this.props.store.filteredCars;
-    const carsList = filteredCars.map((car) => {
+    const carsList = this.filteredCars.map((car) => {
       return <CarItem key={car.id} make={car.make} model={car.model} />;
     });
     return (

@@ -52,14 +52,6 @@ class CarsStore {
       model: "series 7",
     },
   ];
-
-  @observable filter = [];
-  @computed get filteredCars() {
-    let filterMatch = new RegExp(this.filter, "i");
-    return this.caritems.filter(
-      (car) => !this.filter || filterMatch.test(car.make)
-    );
-  }
 }
 
 export default new CarsStore();
