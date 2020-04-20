@@ -6,6 +6,9 @@ import { observer } from "mobx-react";
 import PropTypes from "prop-types";
 import SortButton from "../components/SortButton/SortButton";
 import Pagination from "../components/Pagination/Pagination";
+import AddButton from "../components/AddButton/AddButton"
+import Modal from "../components/Modal/Modal"
+import EditScreen from "../components/EditScreen/EditScreen"
 
 @observer
 class CarList extends React.Component {
@@ -15,7 +18,20 @@ class CarList extends React.Component {
     currentPage: 1,
     itemsPerPage: 2,
     carsList: [],
+    editing: false
   };
+
+  editingHandler = () => {
+    this.setState({
+      editing: true
+    })
+  }
+
+  editingCloseHandler = () => {
+    this.setState({
+      editing: false
+    })
+  }
 
   componentDidMount() {
     this.setState({
@@ -23,7 +39,7 @@ class CarList extends React.Component {
     });
   }
 
-  setCurrentPage(number) {
+  setCurrentPage = (number) => {
     this.setState({
       currentPage: number,
     });
@@ -56,6 +72,7 @@ class CarList extends React.Component {
         return isReversed * a.make.localeCompare(b.make);
       }),
     });
+
   };
 
   render() {
@@ -71,10 +88,15 @@ class CarList extends React.Component {
     const setPaginate = (pageNumber) => this.setCurrentPage(pageNumber);
     return (
       <div>
+        
         <Filter onChange={this.filter.bind(this)} />
         <SortButton clicked={this.onSort} />
+        <AddButton clicked={this.editingHandler} />
 
         <li>{renderList}</li>
+        <Modal show={this.state.editing} >
+          <EditScreen closed={this.editingCloseHandler} />
+        </Modal>
         <Pagination
           itemsPerPage={this.state.itemsPerPage}
           totalItems={this.state.carsList.length}
