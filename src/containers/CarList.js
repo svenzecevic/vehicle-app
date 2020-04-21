@@ -93,7 +93,7 @@ class CarList extends React.Component {
     return (
       <div>
         
-        <Filter onChange={this.filter.bind(this)} />
+        <Filter onChange={this.filter.bind(this)} store={this.props.store.caritems} />
         <SortButton clicked={this.onSort} />
         <AddButton clicked={this.editingHandler} />
 
