@@ -10,6 +10,9 @@ import AddButton from "../components/AddButton/AddButton"
 import Modal from "../components/Modal/Modal"
 import EditScreen from "../components/EditScreen/EditScreen"
 
+
+
+
 @observer
 class CarList extends React.Component {
   state = {
@@ -76,6 +79,7 @@ class CarList extends React.Component {
   };
 
   render() {
+    const store = this.props.store.caritems 
     const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
     let currentItems = this.state.carsList.slice(
@@ -95,7 +99,7 @@ class CarList extends React.Component {
 
         <li>{renderList}</li>
         <Modal show={this.state.editing} >
-          <EditScreen closed={this.editingCloseHandler} />
+          <EditScreen closed={this.editingCloseHandler} store={this.props.store.caritems} />
         </Modal>
         <Pagination
           itemsPerPage={this.state.itemsPerPage}
