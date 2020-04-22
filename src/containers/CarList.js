@@ -6,12 +6,10 @@ import { observer } from "mobx-react";
 import PropTypes from "prop-types";
 import SortButton from "../components/SortButton/SortButton";
 import Pagination from "../components/Pagination/Pagination";
-import AddButton from "../components/AddButton/AddButton"
-import Modal from "../components/Modal/Modal"
-import EditScreen from "../components/EditScreen/EditScreen"
-
-
-
+import AddButton from "../components/AddButton/AddButton";
+import Modal from "../components/Modal/Modal";
+import EditScreen from "../components/EditScreen/EditScreen";
+/* import axios from "axios" */
 
 @observer
 class CarList extends React.Component {
@@ -21,20 +19,29 @@ class CarList extends React.Component {
     currentPage: 1,
     itemsPerPage: 2,
     carsList: [],
-    editing: false
+    editing: false,
   };
+
+  /* componentDidMount(){
+    axios.get("https://some-api...")
+    .then(response => {
+      this.setState({
+        carList: response.data
+      })
+    })
+  } */
 
   editingHandler = () => {
     this.setState({
-      editing: true
-    })
-  }
+      editing: true,
+    });
+  };
 
   editingCloseHandler = () => {
     this.setState({
-      editing: false
-    })
-  }
+      editing: false,
+    });
+  };
 
   componentDidMount() {
     this.setState({
@@ -46,7 +53,7 @@ class CarList extends React.Component {
     this.setState({
       currentPage: number,
     });
-  }
+  };
 
   @observable filterState = [];
 
@@ -75,11 +82,10 @@ class CarList extends React.Component {
         return isReversed * a.make.localeCompare(b.make);
       }),
     });
-
   };
 
   render() {
-    const store = this.props.store.caritems 
+    const store = this.props.store.caritems;
     const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
     let currentItems = this.state.carsList.slice(
@@ -92,14 +98,19 @@ class CarList extends React.Component {
     const setPaginate = (pageNumber) => this.setCurrentPage(pageNumber);
     return (
       <div>
-        
-        <Filter onChange={this.filter.bind(this)} store={this.props.store.caritems} />
+        <Filter
+          onChange={this.filter.bind(this)}
+          store={this.props.store.caritems}
+        />
         <SortButton clicked={this.onSort} />
         <AddButton clicked={this.editingHandler} />
 
         <li>{renderList}</li>
-        <Modal show={this.state.editing} >
-          <EditScreen closed={this.editingCloseHandler} store={this.props.store.caritems} />
+        <Modal show={this.state.editing}>
+          <EditScreen
+            closed={this.editingCloseHandler}
+            store={this.props.store.caritems}
+          />
         </Modal>
         <Pagination
           itemsPerPage={this.state.itemsPerPage}
