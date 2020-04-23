@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-/* import axios from "axios" */
+import axios from "../../axios-cars";
 
 class EditScreen extends Component {
   state = {};
@@ -9,9 +9,8 @@ class EditScreen extends Component {
     const data = this.state;
     console.log(data);
     if (data.make != null && data.model != null) {
-      data.id = this.props.store.length + 1;
-      this.props.store.push(data);
-      /* axios.post("https://some-api...", data) */
+      data.id = Math.random();
+      axios.post("/caritems.json", data);
     } else {
       return;
     }

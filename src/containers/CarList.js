@@ -9,7 +9,7 @@ import Pagination from "../components/Pagination/Pagination";
 import AddButton from "../components/AddButton/AddButton";
 import Modal from "../components/Modal/Modal";
 import EditScreen from "../components/EditScreen/EditScreen";
-/* import axios from "axios" */
+import axios from "../axios-cars";
 
 @observer
 class CarList extends React.Component {
@@ -17,19 +17,22 @@ class CarList extends React.Component {
     render: true,
     sortType: true,
     currentPage: 1,
-    itemsPerPage: 2,
+    itemsPerPage: 5,
     carsList: [],
     editing: false,
   };
 
-  /* componentDidMount(){
-    axios.get("https://some-api...")
-    .then(response => {
-      this.setState({
-        carList: response.data
-      })
-    })
-  } */
+  componentDidMount() {
+    axios
+      .get("https://project-app-628a3.firebaseio.com/caritems.json")
+      .then((response) => {
+        this.props.store.caritems = Object.values(response.data);
+        console.log(this.state.carsList);
+        this.setState({
+          carsList: this.props.store.caritems,
+        });
+      });
+  }
 
   editingHandler = () => {
     this.setState({
@@ -43,12 +46,6 @@ class CarList extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.setState({
-      carsList: this.props.store.caritems,
-    });
-  }
-
   setCurrentPage = (number) => {
     this.setState({
       currentPage: number,
@@ -59,7 +56,7 @@ class CarList extends React.Component {
 
   @computed get filteredCars() {
     let filterMatch = new RegExp(this.filterState, "i");
-    return this.props.store.caritems.filter(
+    return this.state.carsList.filter(
       (car) => !this.filterState || filterMatch.test(car.make)
     );
   }
