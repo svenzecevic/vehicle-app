@@ -1,23 +1,47 @@
-import React from "react";
+import React, { Component } from "react"
+import { observer, inject } from "mobx-react"
+import { action, computed } from "mobx"
 
-const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
+
+@inject("store")
+@observer
+class Pagination extends Component {
+
+  constructor(props){
+    super(props)
+    this.listStore = this.props.store.listStore
+    this.carStore = this.props.store.carStore
+  
   }
-  return (
-    <nav>
-      <ul className="pagination justify-content-center">
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
-              {number}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
 
-export default Pagination;
+  @computed get totalItems(){
+    return this.listStore.carsList.length
+  }
+
+  @action 
+  setCurrentPage = (number) => {
+    this.listStore.currentPage = number
+  }
+
+  render (){
+    let pageNumbers = []
+    for(let i = 1; i <= Math.ceil(this.totalItems / this.listStore.itemsPerPage); i++){
+      pageNumbers.push(i)
+    }
+    return(
+      <nav>
+        <ul className="pagination justify-content-center" >
+          {pageNumbers.map((number) => (
+            <li key={number} className="page-item" >
+              <a onClick={() => this.setCurrentPage(number)}  href="!#" className="page-link"  >
+                {number}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+}
+
+export default Pagination

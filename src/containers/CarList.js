@@ -1,121 +1,87 @@
-import React, { Component } from "react";
-import CarItem from "../components/CarItem/CarItem";
-import Filter from "../components/Filter/Filter";
-import { computed, observable } from "mobx";
-import { observer } from "mobx-react";
-import PropTypes from "prop-types";
-import SortButton from "../components/SortButton/SortButton";
-import Pagination from "../components/Pagination/Pagination";
-import AddButton from "../components/AddButton/AddButton";
-import Modal from "../components/Modal/Modal";
-import EditScreen from "../components/EditScreen/EditScreen";
-import axios from "../axios-cars";
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { action, computed } from "mobx"
+import { observer, inject } from "mobx-react"
+import CarItem from "../components/CarItem/CarItem"
+import Pagination from "../components/Pagination/Pagination"
+import Filter from "../components/Filter/Filter"
+import Modal from "../components/Modal/Modal"
+import AddButton from "../components/AddButton/AddButton"
+import SortButton from "../components/SortButton/SortButton"
+import EditScreen from "../components/EditScreen/EditScreen"
+import axios from "../axios-cars"
 
+
+@inject("store")
 @observer
-class CarList extends React.Component {
-  state = {
-    render: true,
-    sortType: true,
-    currentPage: 1,
-    itemsPerPage: 5,
-    carsList: [],
-    editing: false,
-  };
+class CarList extends Component {
 
+  constructor(props){
+    super(props)
+    this.carStore = this.props.store.carStore
+    this.listStore = this.props.store.listStore
+    this.listStore.carsList = this.carStore.caritems
+  }
+
+  
   componentDidMount() {
     axios
       .get("https://project-app-628a3.firebaseio.com/caritems.json")
       .then((response) => {
-        this.props.store.caritems = Object.values(response.data);
-        console.log(this.state.carsList);
-        this.setState({
-          carsList: this.props.store.caritems,
-        });
+        this.carStore.caritems = Object.values(response.data);
+          this.listStore.carsList = this.carStore.caritems
+          this.listStore.carsList.forEach(element => {
+            if(!this.listStore.dropdownModels.some(e => e.make === element.make)) {
+              this.listStore.dropdownModels.push({...element})
+            }
+          })
       });
   }
 
-  editingHandler = () => {
-    this.setState({
-      editing: true,
-    });
-  };
-
-  editingCloseHandler = () => {
-    this.setState({
-      editing: false,
-    });
-  };
-
-  setCurrentPage = (number) => {
-    this.setState({
-      currentPage: number,
-    });
-  };
-
-  @observable filterState = [];
-
-  @computed get filteredCars() {
-    let filterMatch = new RegExp(this.filterState, "i");
-    return this.state.carsList.filter(
-      (car) => !this.filterState || filterMatch.test(car.make)
-    );
+  @computed get indexOfLastItem(){
+  return  this.listStore.currentPage * this.listStore.itemsPerPage
+  }
+  @computed get indexOfFirstItem(){
+  return  this.indexOfLastItem - this.listStore.itemsPerPage
+  }
+  @computed get currentItems(){
+  return  this.listStore.carsList.slice(
+      this.indexOfFirstItem,
+      this.indexOfLastItem
+    )
+  }
+  @computed get renderList(){
+    return this.currentItems.map((car => {
+    return <CarItem key={car.id} make={car.make} model={car.model} />
+    }))
   }
 
-  filter = (e) => {
-    let index = e.nativeEvent.target.selectedIndex;
-    let label = e.nativeEvent.target[index].text;
-    this.filterState = label;
-    this.setState({
-      carsList: this.filteredCars,
-    });
-  };
-
+  @action
   onSort = () => {
-    this.setState({
-      render: !this.state.render,
-      sortType: !this.state.sortType,
-      carsList: this.state.carsList.slice().sort((a, b) => {
-        const isReversed = this.state.sortType === true ? -1 : 1;
+      this.listStore.render = !this.listStore.render
+      this.listStore.sortType = !this.listStore.sortType
+      this.listStore.carsList = this.listStore.carsList.slice().sort((a, b) => {
+        const isReversed = this.listStore.sortType === true ? 1 : -1;
         return isReversed * a.make.localeCompare(b.make);
-      }),
     });
   };
 
-  render() {
-    const store = this.props.store.caritems;
-    const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
-    let currentItems = this.state.carsList.slice(
-      indexOfFirstItem,
-      indexOfLastItem
-    );
-    let renderList = currentItems.map((car) => {
-      return <CarItem key={car.id} make={car.make} model={car.model} />;
-    });
-    const setPaginate = (pageNumber) => this.setCurrentPage(pageNumber);
-    return (
+  render(){
+    return(
       <div>
-        <Filter
-          onChange={this.filter.bind(this)}
-          store={this.props.store.caritems}
-        />
+        <Filter />
         <SortButton clicked={this.onSort} />
-        <AddButton clicked={this.editingHandler} />
-
-        <li>{renderList}</li>
-        <Modal show={this.state.editing}>
-          <EditScreen
-            closed={this.editingCloseHandler}
-            store={this.props.store.caritems}
-          />
+        <AddButton/>
+        <li>
+          {this.renderList}
+        </li>
+        <Modal show={this.listStore.editing}>
+          <EditScreen/>
         </Modal>
-        <Pagination
-          itemsPerPage={this.state.itemsPerPage}
-          totalItems={this.state.carsList.length}
-          paginate={setPaginate}
-        />
+        
+        <Pagination/>
       </div>
-    );
+    )
   }
 }
 CarItem.propTypes = {
@@ -128,4 +94,4 @@ Filter.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default CarList;
+export default CarList

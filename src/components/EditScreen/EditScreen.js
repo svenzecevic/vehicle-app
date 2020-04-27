@@ -1,29 +1,46 @@
 import React, { Component } from "react";
 import axios from "../../axios-cars";
+import { inject, observer } from "mobx-react"
+import {action} from "mobx"
 
+
+@inject("store")
+@observer
 class EditScreen extends Component {
-  state = {};
 
+  constructor(props){
+    super(props)
+    this.listStore = this.props.store.listStore
+    this.carStore = this.props.store.carStore
+    this.state = {}
+  }
+
+  @action
+  editingCloseHandler = () => {
+    this.listStore.editing = false
+  };
+
+  @action
   handleSubmit = (e) => {
     e.preventDefault();
-    const data = this.state;
-    console.log(data);
+    const data = this.listStore.data
     if (data.make != null && data.model != null) {
       data.id = Math.random();
       axios.post("/caritems.json", data);
     } else {
       return;
     }
+   
   };
 
+  @action
   handleInput = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+  this.listStore.data = {...this.listStore.data, [e.target.name]: e.target.value}
+   console.log(this.listStore.data)
   };
 
   render() {
-    const { vehicle } = this.state;
+    const { vehicle } = this.listStore.data;
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
@@ -49,7 +66,7 @@ class EditScreen extends Component {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={this.props.closed}
+          onClick={this.editingCloseHandler}
         >
           Submit
         </button>
