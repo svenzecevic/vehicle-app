@@ -10,6 +10,8 @@ class EditScreen extends Component {
     super(props);
     this.listStore = this.props.store.listStore;
     this.carStore = this.props.store.carStore;
+    this.formStore = this.props.store.formStore;
+    console.log(this.formStore.className);
   }
 
   @action
@@ -41,32 +43,32 @@ class EditScreen extends Component {
     const { vehicle } = this.listStore.data;
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
+        <div className={this.formStore.divClassName}>
           <input
-            type="text"
-            className="form-control"
-            name="make"
-            placeholder="Enter vehicle make..."
+            type={this.formStore.makeType}
+            className={this.formStore.makeClassName}
+            name={this.formStore.makeName}
+            placeholder={this.formStore.makePlaceholder}
             onChange={this.handleInput}
             value={vehicle}
           />
         </div>
-        <div className="form-group">
+        <div className={this.formStore.divClassName}>
           <input
-            type="text"
-            className="form-control"
-            name="model"
-            placeholder="Enter vehicle model..."
+            type={this.formStore.modelType}
+            className={this.formStore.modelClassName}
+            name={this.formStore.modelName}
+            placeholder={this.formStore.modelPlaceholder}
             onChange={this.handleInput}
             value={vehicle}
           />
         </div>
         <button
-          type="submit"
-          className="btn btn-primary"
+          type={this.formStore.btnType}
+          className={this.formStore.btnClassName}
           onClick={this.editingCloseHandler}
         >
-          Submit
+          {this.formStore.btnLabel}
         </button>
       </form>
     );
