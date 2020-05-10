@@ -1,14 +1,14 @@
 import React from "react";
 import Aux from "../../hoc/Auxillary";
-import classes from "./Layout.module.css";
-import Toolbar from "../Toolbar/Toolbar";
+import Jumbotron from "../../pages/Jumbotron/Jumbotron";
+import MainPage from "../../pages/MainPage/MainPage";
+import { Route } from "react-router-dom";
 
 const layout = (props) => {
   return (
     <Aux>
-      <Toolbar />
-
-      <main className={classes.Content}>{props.children}</main>
+      <Route path="/" exact component={Jumbotron} />
+      <Route path="/main-page" exact component={MainPage} />
     </Aux>
   );
 };

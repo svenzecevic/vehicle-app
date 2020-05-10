@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
-import { action } from "mobx";
+import { action, computed } from "mobx";
 
 @inject("store")
 @observer

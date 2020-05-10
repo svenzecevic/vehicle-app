@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import Layout from "./components/Layout/Layout";
-import CarList from "./containers/CarList"
-
-
+import { BrowserRouter } from "react-router-dom";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Layout>
-          <CarList />
-          
-        </Layout>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
       </div>
     );
   }
