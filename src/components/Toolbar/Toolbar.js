@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./Toolbar.module.css";
 import Logo from "../Logo/Logo";
+import AddButton from "../AddButton/AddButton";
+import SortButton from "../SortButton/SortButton";
 
 const toolbar = (props) => (
   <header className={classes.Toolbar}>
@@ -11,10 +13,7 @@ const toolbar = (props) => (
           {" "}
           <a href="/">Home</a>{" "}
         </li>
-        <li>
-          {" "}
-          <a href="/">Add new car</a>{" "}
-        </li>
+        <AddButton />
       </ul>
     </nav>
   </header>

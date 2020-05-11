@@ -4,10 +4,7 @@ import { action, computed } from "mobx";
 import { observer, inject } from "mobx-react";
 import CarItem from "../components/CarItem/CarItem";
 import Pagination from "../components/Pagination/Pagination";
-import Filter from "../components/Filter/Filter";
 import Modal from "../components/Modal/Modal";
-import AddButton from "../components/AddButton/AddButton";
-import SortButton from "../components/SortButton/SortButton";
 import EditScreen from "../components/EditScreen/EditScreen";
 import axios from "../axios-cars";
 
@@ -55,22 +52,9 @@ class CarList extends Component {
     });
   }
 
-  @action
-  onSort = () => {
-    this.listStore.render = !this.listStore.render;
-    this.listStore.sortType = !this.listStore.sortType;
-    this.listStore.carsList = this.listStore.carsList.slice().sort((a, b) => {
-      const isReversed = this.listStore.sortType === true ? 1 : -1;
-      return isReversed * a.make.localeCompare(b.make);
-    });
-  };
-
   render() {
     return (
       <div>
-        <Filter />
-        <SortButton clicked={this.onSort} />
-        <AddButton />
         <li>{this.renderList}</li>
         <Modal show={this.listStore.editing}>
           <EditScreen />
