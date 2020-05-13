@@ -1,15 +1,14 @@
 import React from "react";
-import Aux from "../../hoc/Auxillary";
 import { Link } from "react-router-dom";
 
 const NotFound = () => (
-  <Aux>
+  <React.Fragment>
     <h1>Page not found!</h1>
 
     <Link to="/main-page">
       <button className="btn btn-link">Go back to home page</button>
     </Link>
-  </Aux>
+  </React.Fragment>
 );
 
 export default NotFound;
