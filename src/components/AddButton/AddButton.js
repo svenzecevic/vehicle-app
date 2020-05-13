@@ -18,12 +18,7 @@ class AddButton extends Component {
   render() {
     return (
       <li>
-        <Link>
-          {" "}
-          <a href="/" onClick={this.editingHandler}>
-            Add new car
-          </a>{" "}
-        </Link>
+        <Link to="/edit-page"> Add new car </Link>
       </li>
     );
   }

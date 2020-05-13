@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
 import { action, computed } from "mobx";
+import { Link } from "react-router-dom";
 
 @inject("store")
 @observer
@@ -13,11 +14,6 @@ class EditScreen extends Component {
     this.formStore = this.props.store.formStore;
     console.log(this.formStore.className);
   }
-
-  @action
-  editingCloseHandler = () => {
-    this.listStore.editing = false;
-  };
 
   @action
   handleSubmit = (e) => {
@@ -63,13 +59,15 @@ class EditScreen extends Component {
             value={vehicle}
           />
         </div>
-        <button
-          type={this.formStore.btnType}
-          className={this.formStore.btnClassName}
-          onClick={this.editingCloseHandler}
-        >
-          {this.formStore.btnLabel}
-        </button>
+
+        <Link to="/main-page">
+          <button
+            type={this.formStore.btnType}
+            className={this.formStore.btnClassName}
+          >
+            {this.formStore.btnLabel}
+          </button>
+        </Link>
       </form>
     );
   }

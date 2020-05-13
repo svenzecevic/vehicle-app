@@ -4,8 +4,6 @@ import { action, computed } from "mobx";
 import { observer, inject } from "mobx-react";
 import CarItem from "../components/CarItem/CarItem";
 import Pagination from "../components/Pagination/Pagination";
-import Modal from "../components/Modal/Modal";
-import EditScreen from "../components/EditScreen/EditScreen";
 import axios from "../axios-cars";
 
 @inject("store")
@@ -56,10 +54,6 @@ class CarList extends Component {
     return (
       <div>
         <li>{this.renderList}</li>
-        <Modal show={this.listStore.editing}>
-          <EditScreen />
-        </Modal>
-
         <Pagination />
       </div>
     );
