@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Toolbar.module.css";
 import Logo from "../Logo/Logo";
 import AddButton from "../AddButton/AddButton";
-import SortButton from "../SortButton/SortButton";
 import { Link } from "react-router-dom";
 
 const toolbar = (props) => (
@@ -12,7 +11,7 @@ const toolbar = (props) => (
       <ul>
         <li>
           {" "}
-          <Link to="/">Home</Link>{" "}
+          <Link to="/main-page">Home</Link>{" "}
         </li>
         <AddButton />
       </ul>
