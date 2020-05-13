@@ -38,7 +38,8 @@ class EditScreen extends Component {
   render() {
     const { vehicle } = this.listStore.data;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={this.formStore.formDiv}>
+        <h1>Enter new vehicle</h1>
         <div className={this.formStore.divClassName}>
           <input
             type={this.formStore.makeType}
