@@ -35,14 +35,12 @@ class Pagination extends Component {
         <ul className="pagination justify-content-center">
           {pageNumbers.map((number) => (
             <li key={number} className="page-item">
-              <Link>
-                <a
-                  onClick={() => this.setCurrentPage(number)}
-                  href="!#"
-                  className="page-link"
-                >
-                  {number}
-                </a>
+              <Link
+                onClick={() => this.setCurrentPage(number)}
+                href="!#"
+                className="page-link"
+              >
+                {number}
               </Link>
             </li>
           ))}
