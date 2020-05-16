@@ -34,8 +34,8 @@ class Pagination extends Component {
       <nav>
         <ul className="pagination justify-content-center">
           {pageNumbers.map((number) => (
-            <Link>
-              <li key={number} className="page-item">
+            <li key={number} className="page-item">
+              <Link>
                 <a
                   onClick={() => this.setCurrentPage(number)}
                   href="!#"
@@ -43,8 +43,8 @@ class Pagination extends Component {
                 >
                   {number}
                 </a>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
       </nav>

@@ -3,6 +3,7 @@ import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
 import { action, computed } from "mobx";
 import { Link } from "react-router-dom";
+import Input from "../Input/Input";
 
 @inject("store")
 @observer
@@ -41,7 +42,7 @@ class EditScreen extends Component {
       <form onSubmit={this.handleSubmit} className={this.formStore.formDiv}>
         <h1>Enter new vehicle</h1>
         <div className={this.formStore.divClassName}>
-          <input
+          <Input
             type={this.formStore.makeType}
             className={this.formStore.makeClassName}
             name={this.formStore.makeName}
@@ -51,7 +52,7 @@ class EditScreen extends Component {
           />
         </div>
         <div className={this.formStore.divClassName}>
-          <input
+          <Input
             type={this.formStore.modelType}
             className={this.formStore.modelClassName}
             name={this.formStore.modelName}
