@@ -1,0 +1,15 @@
+.signOut {
+
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+  
+}
+
+.signOut a:hover, button:hover {
+  color: rgb(63, 60, 60);
+}

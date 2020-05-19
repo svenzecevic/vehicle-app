@@ -6,7 +6,7 @@ const Jumbotron = () => (
     <h1 className="display-4">Vehicle App</h1>
     <p className="lead">App for finding vehicle with make and model</p>
     <hr className="my-4 " />
-    <Link to="/main-page" className="btn btn-primary btn-lg role=" button>
+    <Link to="/signin" className="btn btn-primary btn-lg role=" button>
       {" "}
       Enter
     </Link>
