@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { action, computed } from "mobx";
 import { observer, inject } from "mobx-react";
-import CarItem from "../components/CarItem/CarItem";
-import Pagination from "../components/Pagination/Pagination";
-import axios from "../axios-cars";
+import CarItem from "../CarItem/CarItem";
+import axios from "../../axios-cars";
 
 @inject("store")
 @observer
@@ -54,7 +53,6 @@ class CarList extends Component {
     return (
       <div>
         <li>{this.renderList}</li>
-        <Pagination />
       </div>
     );
   }

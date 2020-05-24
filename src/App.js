@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Layout from "./components/Layout/Layout";
+import React from "react";
+import Layout from "./layouts/Layout/Layout";
 import { BrowserRouter } from "react-router-dom";
 import { withFirebase } from "./assets/Firebase";
 import { inject, observer } from "mobx-react"
@@ -23,7 +23,6 @@ class App extends React.Component {
         ? this.sessionStore.authUser = authUser
         : this.sessionStore.authUser = authUser
     });
-    console.log(this.sessionStore.authUser)
   }
 
   componentWillUnmount() {

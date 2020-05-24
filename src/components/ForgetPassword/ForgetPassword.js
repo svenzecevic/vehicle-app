@@ -3,43 +3,45 @@ import { withFirebase } from "../../assets/Firebase";
 import { inject, observer } from "mobx-react";
 import { action } from "mobx";
 import classes from "./ForgetPassword.module.css";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
+
+@inject("store")
+@observer
 class PasswordForgetBase extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      error: null,
-    };
+    this.pwStore = this.props.store.pwStore
   }
 
+  @action
   onSubmit = (e) => {
-    const { email } = this.state;
+    const { email } = this.pwStore
 
     this.props.firebase
       .doPasswordReset(email)
       .then(() => {
-        this.setState({
-          email: "",
-          error: null,
-        });
-        this.props.history.push("/");
+        this.pwStore.email = ""
+        this.pwStore.error = null
+        this.pwStore.info = true
+        
       })
       .catch((error) => {
-        this.state.error = error;
+        this.pwStore.error = error;
       });
 
     e.preventDefault();
   };
 
+  @action
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target
+    this.pwStore[name] = value
   };
 
   render() {
-    const { email, error } = this.state;
+    const { email, error } = this.pwStore
 
     const isInvalid = email === "";
 
@@ -49,7 +51,7 @@ class PasswordForgetBase extends Component {
           <input
             name="email"
             className="form-control"
-            value={this.state.email}
+            value={email}
             onChange={this.onChange}
             type="text"
             placeholder="Email Address"
@@ -63,6 +65,12 @@ class PasswordForgetBase extends Component {
           </button>
 
           {error && <p>{error.message}</p>}
+          {this.pwStore.info ? <p>Link for password reset has been sent to your email!</p> : null}
+          
+          <Link to="/signin" >
+          <button>Go back to Sign In</button>
+          </Link>
+
         </form>
       </div>
     );

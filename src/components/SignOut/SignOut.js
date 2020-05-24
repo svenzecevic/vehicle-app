@@ -3,9 +3,9 @@ import { withFirebase } from "../../assets/Firebase/";
 import classes from "./SignOut.module.css";
 
 const SignOut = ({ firebase }) => (
-  <a onClick={firebase.doSignOut} className={classes.signOut}>
+  <button onClick={firebase.doSignOut} className={classes.signOut}>
     Sign Out
-  </a>
+  </button>
 );
 
 export default withFirebase(SignOut);

@@ -1,54 +1,53 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { withFirebase } from "../../assets/Firebase";
 import { compose } from "recompose";
 import classes from "./SignUp.module.css";
 import { inject, observer } from "mobx-react";
 import { action } from "mobx";
 
-const INITIAL_STATE = {
-  username: "",
-  email: "",
-  passwordOne: "",
-  passwordTwo: "",
-  error: null,
-};
 
+@inject("store")
+@observer
 class SignUpBase extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: "",
-      email: "",
-      passwordOne: "",
-      passwordTwo: "",
-      error: null,
-    };
+    this.signupStore = this.props.store.signupStore
+    
   }
 
+  @action
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+   const {name, value } = e.target
+   this.signupStore[name] = value
+    
   };
 
-  onSubmit = (event) => {
-    const { username, email, passwordOne } = this.state;
+  @action
+  onSubmit = (e) => {
+
+    const {email, passwordOne } = this.signupStore
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
-        this.setState({ ...INITIAL_STATE });
+        this.signupStore.username = ""
+        this.signupStore.email = ""
+        this.signupStore.passwordOne = ""
+        this.signupStore.passwordTwo = ""
+        this.signupStore.error = null
         this.props.history.push("/signin");
       })
       .catch((error) => {
-        this.setState({ error });
+        this.signupStore.error = error
       });
-
-    event.preventDefault();
+    e.preventDefault();
   };
 
   render() {
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
 
+    const { username, email, passwordOne, passwordTwo, error } = this.signupStore
+    
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === "" ||

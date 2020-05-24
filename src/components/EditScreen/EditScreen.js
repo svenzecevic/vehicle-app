@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
-import { action, computed } from "mobx";
+import { action }  from "mobx";
 import { Link } from "react-router-dom";
 
 @inject("store")

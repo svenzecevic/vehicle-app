@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { action } from "mobx";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 @inject("store")
 @observer
