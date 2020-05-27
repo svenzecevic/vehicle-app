@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
 import { action } from "mobx";
-import { withRouter } from "react-router-dom";
 
 @inject("store")
 @observer
@@ -75,4 +74,4 @@ class EditScreen extends Component {
   }
 }
 
-export default withRouter(EditScreen);
+export default EditScreen;
