@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "../../axios-cars";
 import { inject, observer } from "mobx-react";
-import { action }  from "mobx";
-import { Link } from "react-router-dom";
+import { action } from "mobx";
+import { withRouter } from "react-router-dom";
 
 @inject("store")
 @observer
@@ -12,6 +12,7 @@ class EditScreen extends Component {
     this.listStore = this.props.store.listStore;
     this.carStore = this.props.store.carStore;
     this.formStore = this.props.store.formStore;
+    this.listStore.editInfo = false;
   }
 
   @action
@@ -21,6 +22,7 @@ class EditScreen extends Component {
     if (data.make != null && data.model != null) {
       data.id = Math.random();
       axios.post("/caritems.json", data);
+      this.listStore.editInfo = true;
     } else {
       return;
     }
@@ -36,6 +38,7 @@ class EditScreen extends Component {
 
   render() {
     const { vehicle } = this.listStore.data;
+    let editInfo = this.listStore.editInfo;
     return (
       <form
         onSubmit={this.handleSubmit}
@@ -62,15 +65,14 @@ class EditScreen extends Component {
             value={vehicle}
           />
         </div>
+        {editInfo ? <p>Your vehicle has been added!</p> : null}
 
-        <Link to="/main-page">
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </Link>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     );
   }
 }
 
-export default EditScreen;
+export default withRouter(EditScreen);
