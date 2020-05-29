@@ -23,7 +23,11 @@ class Filter extends Component {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
     this.carStore.filterState = label;
-    this.listStore.carsList = this.filteredCars;
+    if (label === "All") {
+      this.listStore.carsList = this.carStore.caritems;
+    } else {
+      this.listStore.carsList = this.filteredCars;
+    }
   };
 
   @action
@@ -42,6 +46,7 @@ class Filter extends Component {
           <option disabled value="default">
             Choose a make...
           </option>
+          <option>All</option>
           {this.listStore.dropdownModels.map((opt) => {
             return <option key={opt.id}> {opt.make} </option>;
           })}
