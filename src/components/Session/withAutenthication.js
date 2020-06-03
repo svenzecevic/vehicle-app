@@ -2,12 +2,12 @@ import { withFirebase } from "../../assets/Firebase";
 import { inject } from "mobx-react";
 
 const withAuthentication = (Component) => {
-  @inject("store")
+  @inject("sessionStore")
   class WithAuthentication extends React.Component {
     constructor(props) {
       super(props);
 
-      this.sessionStore = this.props.store.sessionStore;
+      this.sessionStore = this.props.sessionStore;
       this.sessionStore.setAuthUser(
         JSON.parse(localStorage.getItem("authUser"))
       );

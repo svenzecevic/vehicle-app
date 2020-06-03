@@ -6,45 +6,41 @@ import classes from "./SignIn.module.css";
 import { inject, observer } from "mobx-react";
 import { action } from "mobx";
 
-
-@inject("store")
+@inject("signinStore")
 @observer
 class SignInBase extends Component {
   constructor(props) {
     super(props);
-    this.signinStore = this.props.store.signinStore
+    this.signinStore = this.props.signinStore;
   }
 
-
- 
   @action
   onSubmit = (e) => {
-    const { email, password } = this.signinStore
+    const { email, password } = this.signinStore;
 
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.signinStore.email = ""
-        this.signinStore.password = ""
-        this.signinStore.error = null
+        this.signinStore.email = "";
+        this.signinStore.password = "";
+        this.signinStore.error = null;
         this.props.history.push("/main-page");
       })
       .catch((error) => {
-        this.signinStore.error = error
+        this.signinStore.error = error;
       });
 
     e.preventDefault();
   };
 
-
   @action
   onChange = (e) => {
-    const { name, value } = e.target
-    this.signinStore[name] = value
+    const { name, value } = e.target;
+    this.signinStore[name] = value;
   };
 
   render() {
-    const { email, password, error } = this.signinStore
+    const { email, password, error } = this.signinStore;
 
     const isInvalid = password === "" || email === "";
 

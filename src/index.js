@@ -8,7 +8,14 @@ import store from "./stores/RootStore";
 import Firebase, { FirebaseContext } from "./assets/Firebase";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider
+    store={store}
+    listStore={store.listStore}
+    sessionStore={store.sessionStore}
+    signupStore={store.signupStore}
+    signinStore={store.signinStore}
+    pwStore={store.pwStore}
+  >
     <FirebaseContext.Provider value={new Firebase()}>
       <App />
     </FirebaseContext.Provider>

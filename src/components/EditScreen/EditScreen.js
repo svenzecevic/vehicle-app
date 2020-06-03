@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
-@inject("store")
+@inject("listStore")
 @observer
 class EditScreen extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.store.listStore;
+    this.listStore = this.props.listStore;
     this.listStore.editInfo = false;
   }
 

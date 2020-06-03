@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { inject } from "mobx-react";
 
-@inject("store")
+@inject("listStore")
 class SortButton extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.store.listStore;
+    this.listStore = this.props.listStore;
   }
 
   render() {

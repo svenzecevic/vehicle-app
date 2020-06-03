@@ -6,48 +6,49 @@ import classes from "./SignUp.module.css";
 import { inject, observer } from "mobx-react";
 import { action } from "mobx";
 
-
-@inject("store")
+@inject("signupStore")
 @observer
 class SignUpBase extends Component {
   constructor(props) {
     super(props);
-    this.signupStore = this.props.store.signupStore
-    
+    this.signupStore = this.props.signupStore;
   }
 
   @action
   onChange = (e) => {
-   const {name, value } = e.target
-   this.signupStore[name] = value
-    
+    const { name, value } = e.target;
+    this.signupStore[name] = value;
   };
 
   @action
   onSubmit = (e) => {
-
-    const {email, passwordOne } = this.signupStore
+    const { email, passwordOne } = this.signupStore;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
-        this.signupStore.username = ""
-        this.signupStore.email = ""
-        this.signupStore.passwordOne = ""
-        this.signupStore.passwordTwo = ""
-        this.signupStore.error = null
+        this.signupStore.username = "";
+        this.signupStore.email = "";
+        this.signupStore.passwordOne = "";
+        this.signupStore.passwordTwo = "";
+        this.signupStore.error = null;
         this.props.history.push("/signin");
       })
       .catch((error) => {
-        this.signupStore.error = error
+        this.signupStore.error = error;
       });
     e.preventDefault();
   };
 
   render() {
+    const {
+      username,
+      email,
+      passwordOne,
+      passwordTwo,
+      error,
+    } = this.signupStore;
 
-    const { username, email, passwordOne, passwordTwo, error } = this.signupStore
-    
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === "" ||

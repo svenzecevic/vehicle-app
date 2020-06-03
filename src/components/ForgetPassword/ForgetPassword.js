@@ -6,26 +6,24 @@ import classes from "./ForgetPassword.module.css";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
-
-@inject("store")
+@inject("pwStore")
 @observer
 class PasswordForgetBase extends Component {
   constructor(props) {
     super(props);
-    this.pwStore = this.props.store.pwStore
+    this.pwStore = this.props.pwStore;
   }
 
   @action
   onSubmit = (e) => {
-    const { email } = this.pwStore
+    const { email } = this.pwStore;
 
     this.props.firebase
       .doPasswordReset(email)
       .then(() => {
-        this.pwStore.email = ""
-        this.pwStore.error = null
-        this.pwStore.info = true
-        
+        this.pwStore.email = "";
+        this.pwStore.error = null;
+        this.pwStore.info = true;
       })
       .catch((error) => {
         this.pwStore.error = error;
@@ -36,12 +34,12 @@ class PasswordForgetBase extends Component {
 
   @action
   onChange = (e) => {
-    const { name, value } = e.target
-    this.pwStore[name] = value
+    const { name, value } = e.target;
+    this.pwStore[name] = value;
   };
 
   render() {
-    const { email, error } = this.pwStore
+    const { email, error } = this.pwStore;
 
     const isInvalid = email === "";
 
@@ -65,12 +63,13 @@ class PasswordForgetBase extends Component {
           </button>
 
           {error && <p>{error.message}</p>}
-          {this.pwStore.info ? <p>Link for password reset has been sent to your email!</p> : null}
-          
-          <Link to="/signin" >
-          <button>Go back to Sign In</button>
-          </Link>
+          {this.pwStore.info ? (
+            <p>Link for password reset has been sent to your email!</p>
+          ) : null}
 
+          <Link to="/signin">
+            <button>Go back to Sign In</button>
+          </Link>
         </form>
       </div>
     );

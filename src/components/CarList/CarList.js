@@ -4,12 +4,12 @@ import { observer, inject } from "mobx-react";
 import CarItem from "../CarItem/CarItem";
 import axios from "../../axios-cars";
 
-@inject("store")
+@inject("listStore")
 @observer
 class CarList extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.store.listStore;
+    this.listStore = this.props.listStore;
   }
 
   componentDidMount() {

@@ -5,12 +5,12 @@ import { withFirebase } from "../../assets/Firebase";
 import { inject, observer } from "mobx-react";
 
 const withAuthorization = (condition) => (Component) => {
-  @inject("store")
+  @inject("sessionStore")
   @observer
   class WithAuthorization extends React.Component {
     constructor(props) {
       super(props);
-      this.sessionStore = this.props.store.sessionStore;
+      this.sessionStore = this.props.sessionStore;
     }
 
     componentDidMount() {
