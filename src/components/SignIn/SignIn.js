@@ -4,7 +4,6 @@ import { compose } from "recompose";
 import { withFirebase } from "../../assets/Firebase";
 import classes from "./SignIn.module.css";
 import { inject, observer } from "mobx-react";
-import { action } from "mobx";
 
 @inject("signinStore")
 @observer
@@ -14,29 +13,20 @@ class SignInBase extends Component {
     this.signinStore = this.props.signinStore;
   }
 
-  @action
   onSubmit = (e) => {
     const { email, password } = this.signinStore;
 
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.signinStore.email = "";
-        this.signinStore.password = "";
-        this.signinStore.error = null;
+        this.signinStore.handleonSubmit();
         this.props.history.push("/main-page");
       })
       .catch((error) => {
-        this.signinStore.error = error;
+        this.signinStore.handleError(error);
       });
 
     e.preventDefault();
-  };
-
-  @action
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this.signinStore[name] = value;
   };
 
   render() {
@@ -51,7 +41,7 @@ class SignInBase extends Component {
             name="email"
             className="form-control"
             value={email}
-            onChange={this.onChange}
+            onChange={this.signinStore.onChange}
             type="text"
             placeholder="Email Address"
           />
@@ -59,7 +49,7 @@ class SignInBase extends Component {
             name="password"
             className="form-control"
             value={password}
-            onChange={this.onChange}
+            onChange={this.signinStore.onChange}
             type="password"
             placeholder="Password"
           />

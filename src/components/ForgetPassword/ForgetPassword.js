@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withFirebase } from "../../assets/Firebase";
 import { inject, observer } from "mobx-react";
-import { action } from "mobx";
 import classes from "./ForgetPassword.module.css";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
@@ -14,28 +13,19 @@ class PasswordForgetBase extends Component {
     this.pwStore = this.props.pwStore;
   }
 
-  @action
   onSubmit = (e) => {
     const { email } = this.pwStore;
 
     this.props.firebase
       .doPasswordReset(email)
       .then(() => {
-        this.pwStore.email = "";
-        this.pwStore.error = null;
-        this.pwStore.info = true;
+        this.pwStore.handleonSubmit();
       })
       .catch((error) => {
-        this.pwStore.error = error;
+        this.pwStore.handleError(error);
       });
 
     e.preventDefault();
-  };
-
-  @action
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this.pwStore[name] = value;
   };
 
   render() {
@@ -50,7 +40,7 @@ class PasswordForgetBase extends Component {
             name="email"
             className="form-control"
             value={email}
-            onChange={this.onChange}
+            onChange={this.pwStore.onChange}
             type="text"
             placeholder="Email Address"
           />

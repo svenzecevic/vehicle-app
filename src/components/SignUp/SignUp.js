@@ -4,7 +4,6 @@ import { withFirebase } from "../../assets/Firebase";
 import { compose } from "recompose";
 import classes from "./SignUp.module.css";
 import { inject, observer } from "mobx-react";
-import { action } from "mobx";
 
 @inject("signupStore")
 @observer
@@ -14,28 +13,17 @@ class SignUpBase extends Component {
     this.signupStore = this.props.signupStore;
   }
 
-  @action
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this.signupStore[name] = value;
-  };
-
-  @action
   onSubmit = (e) => {
     const { email, passwordOne } = this.signupStore;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
-        this.signupStore.username = "";
-        this.signupStore.email = "";
-        this.signupStore.passwordOne = "";
-        this.signupStore.passwordTwo = "";
-        this.signupStore.error = null;
+        this.signupStore.handleonSubmit();
         this.props.history.push("/signin");
       })
       .catch((error) => {
-        this.signupStore.error = error;
+        this.signupStore.handleError(error);
       });
     e.preventDefault();
   };
@@ -62,7 +50,7 @@ class SignUpBase extends Component {
             name="username"
             className="form-control"
             value={username}
-            onChange={this.onChange}
+            onChange={this.signupStore.onChange}
             type="text"
             placeholder="Full Name"
           />
@@ -70,7 +58,7 @@ class SignUpBase extends Component {
             name="email"
             className="form-control"
             value={email}
-            onChange={this.onChange}
+            onChange={this.signupStore.onChange}
             type="text"
             placeholder="Email Address"
           />
@@ -78,7 +66,7 @@ class SignUpBase extends Component {
             name="passwordOne"
             className="form-control"
             value={passwordOne}
-            onChange={this.onChange}
+            onChange={this.signupStore.onChange}
             type="password"
             placeholder="Password"
           />
@@ -86,7 +74,7 @@ class SignUpBase extends Component {
             name="passwordTwo"
             className="form-control"
             value={passwordTwo}
-            onChange={this.onChange}
+            onChange={this.signupStore.onChange}
             type="password"
             placeholder="Confirm Password"
           />
