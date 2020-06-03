@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import { action, computed } from "mobx";
 import { Link } from "react-router-dom";
 
 @inject("store")
@@ -9,23 +8,13 @@ class Pagination extends Component {
   constructor(props) {
     super(props);
     this.listStore = this.props.store.listStore;
-    this.carStore = this.props.store.carStore;
   }
-
-  @computed get totalItems() {
-    return this.listStore.carsList.length;
-  }
-
-  @action
-  setCurrentPage = (number) => {
-    this.listStore.currentPage = number;
-  };
 
   render() {
     let pageNumbers = [];
     for (
       let i = 1;
-      i <= Math.ceil(this.totalItems / this.listStore.itemsPerPage);
+      i <= Math.ceil(this.listStore.totalItems / this.listStore.itemsPerPage);
       i++
     ) {
       pageNumbers.push(i);
@@ -36,7 +25,7 @@ class Pagination extends Component {
           {pageNumbers.map((number) => (
             <li key={number} className="page-item">
               <Link
-                onClick={() => this.setCurrentPage(number)}
+                onClick={() => this.listStore.setCurrentPage(number)}
                 href="!#"
                 className="page-link"
               >
