@@ -24,7 +24,7 @@ class CarList extends Component {
     return (
       <div>
         <li>
-          {this.listStore.currentMakes.map((car) => {
+          {this.listStore.currentModels.map((car) => {
             return <VehicleMake make={car} />;
           })}
         </li>

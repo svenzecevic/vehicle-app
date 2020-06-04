@@ -5,7 +5,7 @@ const NotFound = () => (
   <React.Fragment>
     <h1>Page not found!</h1>
 
-    <Link to="/main-page">
+    <Link to="/make-list">
       <button className="btn btn-link">Go back to home page</button>
     </Link>
   </React.Fragment>

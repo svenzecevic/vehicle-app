@@ -1,6 +1,6 @@
 import React from "react";
 import Toolbar from "../../components/Toolbar/Toolbar";
-import List from "../../containers/ListMakes";
+import List from "../../containers/ListModels";
 import withAuthorization from "../../components/Session/withAuthorization";
 
 const MainPage = (props) => {

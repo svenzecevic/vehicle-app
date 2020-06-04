@@ -14,7 +14,7 @@ class Pagination extends Component {
     let pageNumbers = [];
     for (
       let i = 1;
-      i <= Math.ceil(this.listStore.totalItems / this.listStore.itemsPerPage);
+      i <= Math.ceil(this.listStore.totalModels / this.listStore.itemsPerPage);
       i++
     ) {
       pageNumbers.push(i);

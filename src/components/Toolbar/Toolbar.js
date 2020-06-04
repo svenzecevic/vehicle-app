@@ -23,7 +23,11 @@ class Toolbar extends Component {
           <ul>
             <li>
               {" "}
-              <Link to="/main-page">Home</Link>{" "}
+              <Link to="/make-list">Vehicle Makes</Link>{" "}
+            </li>
+            <li>
+              {" "}
+              <Link to="/model-list">Vehicle Models</Link>{" "}
             </li>
             <li>
               <AddButton />

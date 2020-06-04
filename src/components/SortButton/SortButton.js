@@ -11,12 +11,12 @@ class SortButton extends Component {
   render() {
     return (
       <button
-        onClick={this.listStore.onSort}
+        onClick={this.listStore.onSortMake}
         className="btn btn-primary"
         data-toggle="button"
         aria-pressed="false"
       >
-        Sort by make
+        Sort
       </button>
     );
   }

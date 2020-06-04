@@ -23,6 +23,10 @@ class ListStore {
     return this.carsList.map((make) => make.make);
   }
 
+  @computed get Models() {
+    return this.carsList.map((model) => model.model);
+  }
+
   @computed get uniqueSet() {
     return [...new Set(this.Makes)];
   }
@@ -33,8 +37,12 @@ class ListStore {
   @computed get indexOfFirstItem() {
     return this.indexOfLastItem - this.itemsPerPage;
   }
-  @computed get currentItems() {
+  @computed get currentMakes() {
     return this.uniqueSet.slice(this.indexOfFirstItem, this.indexOfLastItem);
+  }
+
+  @computed get currentModels() {
+    return this.Models.slice(this.indexOfFirstItem, this.indexOfLastItem);
   }
 
   @computed get filteredCars() {
@@ -77,8 +85,12 @@ class ListStore {
     };
   };
 
-  @computed get totalItems() {
+  @computed get totalMakes() {
     return this.uniqueSet.length;
+  }
+
+  @computed get totalModels() {
+    return this.Models.length;
   }
 
   @action
@@ -101,12 +113,22 @@ class ListStore {
   };
 
   @action
-  onSort = () => {
+  onSortMake = () => {
     this.render = !this.render;
     this.sortType = !this.sortType;
     this.carsList = this.carsList.slice().sort((a, b) => {
       const isReversed = this.sortType === true ? 1 : -1;
       return isReversed * a.make.localeCompare(b.make);
+    });
+  };
+
+  @action
+  onSortModel = () => {
+    this.render = !this.render;
+    this.sortType = !this.sortType;
+    this.carsList = this.carsList.slice().sort((a, b) => {
+      const isReversed = this.sortType === true ? 1 : -1;
+      return isReversed * a.model.localeCompare(b.model);
     });
   };
 
