@@ -101,6 +101,17 @@ class ListStore {
       return isReversed * a.make.localeCompare(b.make);
     });
   };
+
+  @action
+  handleListCDM = (response) => {
+    this.caritems = Object.values(response.data);
+    this.carsList = this.caritems;
+    this.carsList.forEach((element) => {
+      if (!this.dropdownModels.some((e) => e.make === element.make)) {
+        this.dropdownModels.push({ ...element });
+      }
+    });
+  };
 }
 
 export default ListStore;

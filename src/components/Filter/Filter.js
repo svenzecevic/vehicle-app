@@ -10,13 +10,6 @@ class Filter extends Component {
     this.listStore = this.props.listStore;
   }
 
-  componentDidMount() {
-    this.listStore.carsList.forEach((element) => {
-      if (!this.listStore.dropdownModels.some((e) => e.make === element.make)) {
-        this.listStore.dropdownModels.push({ ...element });
-      }
-    });
-  }
   render() {
     return (
       <React.Fragment>

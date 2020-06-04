@@ -16,15 +16,7 @@ class CarList extends Component {
     axios
       .get("https://project-app-628a3.firebaseio.com/caritems.json")
       .then((response) => {
-        this.listStore.caritems = Object.values(response.data);
-        this.listStore.carsList = this.listStore.caritems;
-        this.listStore.carsList.forEach((element) => {
-          if (
-            !this.listStore.dropdownModels.some((e) => e.make === element.make)
-          ) {
-            this.listStore.dropdownModels.push({ ...element });
-          }
-        });
+        this.listStore.handleListCDM(response);
       });
   }
 
