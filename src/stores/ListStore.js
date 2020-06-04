@@ -19,6 +19,14 @@ class ListStore {
   @observable filterState = [];
   @observable search = [];
 
+  @computed get Makes() {
+    return this.carsList.map((make) => make.make);
+  }
+
+  @computed get uniqueSet() {
+    return [...new Set(this.Makes)];
+  }
+
   @computed get indexOfLastItem() {
     return this.currentPage * this.itemsPerPage;
   }
@@ -26,7 +34,7 @@ class ListStore {
     return this.indexOfLastItem - this.itemsPerPage;
   }
   @computed get currentItems() {
-    return this.carsList.slice(this.indexOfFirstItem, this.indexOfLastItem);
+    return this.uniqueSet.slice(this.indexOfFirstItem, this.indexOfLastItem);
   }
 
   @computed get filteredCars() {
@@ -70,7 +78,7 @@ class ListStore {
   };
 
   @computed get totalItems() {
-    return this.carsList.length;
+    return this.uniqueSet.length;
   }
 
   @action

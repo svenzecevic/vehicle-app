@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { observer, inject } from "mobx-react";
 import CarItem from "../CarItem/CarItem";
 import axios from "../../axios-cars";
+import VehicleMake from "../CarItem/VehicleMake";
 
 @inject("listStore")
 @observer
@@ -25,14 +26,14 @@ class CarList extends Component {
       <div>
         <li>
           {this.listStore.currentItems.map((car) => {
-            return <CarItem key={car.id} make={car.make} model={car.model} />;
+            return <VehicleMake make={car} />;
           })}
         </li>
       </div>
     );
   }
 }
-CarItem.propTypes = {
+VehicleMake.propTypes = {
   make: PropTypes.string,
   model: PropTypes.string,
   id: PropTypes.number,
