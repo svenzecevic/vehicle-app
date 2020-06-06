@@ -1,12 +1,27 @@
 import React from "react";
-import { observer } from "mobx-react";
+import PropTypes from "prop-types";
 
-const $input = "form-control";
-const $small = "form-text text-danger";
+let FormInput = (props) => {
+  let { type, error, onChange, ...rest } = props;
+  type = type || "text";
+  return (
+    <span>
+      <input
+        {...rest}
+        className="form-control"
+        type={type}
+        onChange={(e) => onChange(e.target.name, e.target.value)}
+      />
+      {error ? <div className="form-text text-danger">{error}</div> : null}
+    </span>
+  );
+};
+FormInput.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["text", "email", "password"]),
+  error: PropTypes.string,
+  placeholder: PropTypes.string,
+};
 
-export default observer(({ field, type = "text", placeholder = null }) => (
-  <div>
-    <input {...field.bind({ type, placeholder })} className={$input} />
-    <small className={$small}>{field.error}</small>
-  </div>
-));
+export default FormInput;

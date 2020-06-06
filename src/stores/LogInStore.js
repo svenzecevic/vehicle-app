@@ -1,29 +1,19 @@
 import { observable } from "mobx";
 import GenericFormStore from "./GenericFormStore";
 
-class SignUpStore extends GenericFormStore {
+class LoginStore extends GenericFormStore {
   @observable
   form = {
     fields: {
-      username: {
-        value: "",
-        error: null,
-        rule: "required|string|between:5,25",
-      },
       email: {
         value: "",
         error: null,
         rule: "required|string|email|between:5,25",
       },
-      passwordOne: {
+      password: {
         value: "",
         error: null,
         rule: "required|string|between:5,25",
-      },
-      passwordTwo: {
-        value: "",
-        error: null,
-        rule: "required|string|same:passwordOne|between:5,25",
       },
     },
     meta: {
@@ -33,4 +23,4 @@ class SignUpStore extends GenericFormStore {
   };
 }
 
-export default SignUpStore;
+export default LoginStore;

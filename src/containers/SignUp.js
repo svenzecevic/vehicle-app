@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import LoginForm from "../components/SignIn/SignInForm";
-import LoginStore from "../stores/LogInStore";
+import SignUpForm from "../components/SignUp/SignUpForm";
+import SignUpStore from "../stores/SignUpStore";
 import { withFirebase } from "../assets/Firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
 @inject(() => ({
-  store: new LoginStore(),
+  store: new SignUpStore(),
 }))
 @observer
-class SignIn extends Component {
+class SignUp extends Component {
   render() {
     let { store } = this.props;
     return (
       <div>
-        <LoginForm
+        <SignUpForm
           onSubmit={this.onSubmitForm}
           form={store.form}
           onChange={store.onFieldChange}
@@ -24,13 +24,13 @@ class SignIn extends Component {
     );
   }
 
-  onSubmitForm = (email, password) => {
+  onSubmitForm = (email, passwordOne) => {
     this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(() => {
-        this.props.history.push("/make-list");
+        this.props.history.push("/signin");
       });
   };
 }
 
-export default compose(withRouter, withFirebase)(SignIn);
+export default compose(withRouter, withFirebase)(SignUp);

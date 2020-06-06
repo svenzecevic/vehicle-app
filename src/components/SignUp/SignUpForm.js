@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import FormInput from "../Input/Input";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
-import classes from "./SignIn.module.css";
+import classes from "./SignUp.module.css";
 
 @observer
-class LoginForm extends Component {
+class SignUpForm extends Component {
   render() {
     const { form, onChange } = this.props;
     const { fields, meta } = form;
@@ -14,6 +14,16 @@ class LoginForm extends Component {
       <div className={classes.loginForm}>
         <form className="form-group" onSubmit={this.submit}>
           <div>
+            <div>
+              <FormInput
+                type="text"
+                name="username"
+                value={fields.username.value}
+                error={fields.username.error}
+                onChange={onChange}
+                placeholder="Username"
+              />
+            </div>
             <FormInput
               type="email"
               name="email"
@@ -26,11 +36,21 @@ class LoginForm extends Component {
           <div>
             <FormInput
               type="password"
-              name="password"
-              value={fields.password.value}
-              error={fields.password.error}
+              name="passwordOne"
+              value={fields.passwordOne.value}
+              error={fields.passwordOne.error}
               onChange={onChange}
               placeholder="Password"
+            />
+          </div>
+          <div>
+            <FormInput
+              type="password"
+              name="passwordTwo"
+              value={fields.passwordTwo.value}
+              error={fields.passwordTwo.error}
+              onChange={onChange}
+              placeholder="Confirm password"
             />
           </div>
 
@@ -41,7 +61,7 @@ class LoginForm extends Component {
             disabled={!meta.isValid}
             type="submit"
           >
-            Sign in
+            Sign Up
           </button>
         </form>
       </div>
@@ -50,11 +70,11 @@ class LoginForm extends Component {
   submit = (e) => {
     e.preventDefault();
     let email = this.props.form.fields.email.value;
-    let password = this.props.form.fields.password.value;
-    this.props.onSubmit(email, password);
+    let passwordOne = this.props.form.fields.passwordOne.value;
+    this.props.onSubmit(email, passwordOne);
   };
 }
-LoginForm.propTypes = {
+SignUpForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
@@ -71,4 +91,4 @@ LoginForm.propTypes = {
   }).isRequired,
 };
 
-export default LoginForm;
+export default SignUpForm;

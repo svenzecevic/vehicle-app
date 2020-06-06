@@ -1,13 +1,10 @@
 import React from "react";
-import SignUp from "../../components/SignUp/SignUp";
-import { FirebaseContext } from "../../assets/Firebase";
+import SignUp from "../../containers/SignUp";
 
 const SignUpPage = () => (
   <div>
     <h1>Sign Up</h1>
-    <FirebaseContext.Consumer>
-      {(firebase) => <SignUp firebase={firebase} />}
-    </FirebaseContext.Consumer>
+    <SignUp />
   </div>
 );
 
