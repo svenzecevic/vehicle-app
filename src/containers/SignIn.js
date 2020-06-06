@@ -5,12 +5,22 @@ import LoginStore from "../stores/LogInStore";
 import { withFirebase } from "../assets/Firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "https://api.baasic.com/v1/szecevic",
+});
 
 @inject(() => ({
   store: new LoginStore(),
 }))
 @observer
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    api.get("/").then((res) => console.log(res));
+  }
+
   render() {
     let { store } = this.props;
     return (

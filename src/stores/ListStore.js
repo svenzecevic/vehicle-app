@@ -20,7 +20,7 @@ class ListStore {
   @observable search = [];
 
   @computed get Makes() {
-    return this.carsList.map((make) => make.make);
+    return this.carsList.map((make) => make.name);
   }
 
   @computed get Models() {
@@ -134,10 +134,11 @@ class ListStore {
 
   @action
   handleListCDM = (response) => {
-    this.caritems = Object.values(response.data);
-    this.carsList = this.caritems;
-    this.carsList.forEach((element) => {
-      if (!this.dropdownModels.some((e) => e.make === element.make)) {
+    let items = response.data.item;
+    console.log(items);
+    this.carsList = items;
+    items.forEach((element) => {
+      if (!this.dropdownModels.some((e) => e.name === element.name)) {
         this.dropdownModels.push({ ...element });
       }
     });

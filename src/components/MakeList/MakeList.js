@@ -14,8 +14,9 @@ class CarList extends Component {
 
   componentDidMount() {
     axios
-      .get("https://project-app-628a3.firebaseio.com/caritems.json")
+      .get("https://api.baasic.com/v1/project-app/resources/make/")
       .then((response) => {
+        console.log(response.data);
         this.listStore.handleListCDM(response);
       });
   }
