@@ -23,7 +23,7 @@ class Filter extends Component {
           </option>
           <option>All</option>
           {this.listStore.dropdownModels.map((opt) => {
-            return <option key={opt.id}> {opt.make} </option>;
+            return <option key={opt.id}> {opt.name} </option>;
           })}
         </select>
       </React.Fragment>

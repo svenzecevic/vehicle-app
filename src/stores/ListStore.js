@@ -18,13 +18,16 @@ class ListStore {
   @observable caritems = [];
   @observable filterState = [];
   @observable search = [];
+  @observable responseData = [];
+  @observable modelsList = [];
+  @observable modelsData = [];
 
   @computed get Makes() {
     return this.carsList.map((make) => make.name);
   }
 
   @computed get Models() {
-    return this.carsList.map((model) => model.model);
+    return this.modelsList.map((model) => model.name);
   }
 
   @computed get uniqueSet() {
@@ -47,8 +50,8 @@ class ListStore {
 
   @computed get filteredCars() {
     let filterMatch = new RegExp(this.filterState, "i");
-    return this.caritems.filter(
-      (car) => !this.filterState || filterMatch.test(car.make)
+    return this.carsList.filter(
+      (car) => !this.filterState || filterMatch.test(car.name)
     );
   }
 
@@ -58,7 +61,7 @@ class ListStore {
     let label = e.nativeEvent.target[index].text;
     this.filterState = label;
     if (label === "All") {
-      this.carsList = this.caritems;
+      this.carsList = this.responseData;
     } else {
       this.carsList = this.filteredCars;
     }
@@ -100,9 +103,7 @@ class ListStore {
 
   @computed get searchCars() {
     let searchMatch = new RegExp(this.search, "i");
-    return this.caritems.filter(
-      (car) => searchMatch.test(car.model) || searchMatch.test(car.make)
-    );
+    return this.carsList.filter((car) => searchMatch.test(car.name));
   }
 
   @action
@@ -118,7 +119,7 @@ class ListStore {
     this.sortType = !this.sortType;
     this.carsList = this.carsList.slice().sort((a, b) => {
       const isReversed = this.sortType === true ? 1 : -1;
-      return isReversed * a.make.localeCompare(b.make);
+      return isReversed * a.name.localeCompare(b.name);
     });
   };
 
@@ -135,13 +136,20 @@ class ListStore {
   @action
   handleListCDM = (response) => {
     let items = response.data.item;
-    console.log(items);
     this.carsList = items;
+    this.responseData = items;
     items.forEach((element) => {
       if (!this.dropdownModels.some((e) => e.name === element.name)) {
         this.dropdownModels.push({ ...element });
       }
     });
+  };
+
+  @action
+  handleModelsCDM = (response) => {
+    let items = response.data.item;
+    this.modelsList = items;
+    this.responseData = items;
   };
 }
 
