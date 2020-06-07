@@ -21,6 +21,7 @@ class ListStore {
   @observable responseData = [];
   @observable modelsList = [];
   @observable modelsData = [];
+  @observable responseModels = [];
 
   @computed get Makes() {
     return this.carsList.map((make) => make.name);
@@ -106,11 +107,16 @@ class ListStore {
     return this.modelsList.filter((car) => searchMatch.test(car.name));
   }
 
+  @computed get searchMakes() {
+    let searchMatch = new RegExp(this.search, "i");
+    return this.carsList.filter((car) => searchMatch.test(car.name));
+  }
+
   @action
   searchHandler = (e) => {
     let result = e.target.value;
     this.search = result;
-    this.carsList = this.searchCars;
+    this.carsList = this.searchMakes;
   };
 
   @action
@@ -184,7 +190,17 @@ class ListStore {
   handleModelsCDM = (response) => {
     let items = response.data.item;
     this.modelsList = items;
-    this.responseData = items;
+    this.responseModels = items;
+  };
+
+  @action
+  onReloadMake = () => {
+    this.carsList = this.responseData;
+  };
+
+  @action
+  onReloadModel = () => {
+    this.modelsList = this.responseModels;
   };
 }
 
