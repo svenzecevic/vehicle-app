@@ -4,8 +4,8 @@ import Pagination from "../components/Pagination/PaginationMake";
 import Filter from "../components/Filter/Filter";
 import SortAsc from "../components/SortButton/Make/SortMakeAsc";
 import SortDesc from "../components/SortButton/Make/SortMakeDesc";
-import Search from "../components/Search/SearchMake";
-import Reload from "../components/Reload/ReloadMake";
+import Search from "../components/Search/Search";
+import Reload from "../components/Reload/Reload";
 
 const List = () => (
   <React.Fragment>

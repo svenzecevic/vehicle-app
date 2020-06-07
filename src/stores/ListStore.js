@@ -23,16 +23,12 @@ class ListStore {
   @observable modelsData = [];
   @observable responseModels = [];
 
-  @computed get Makes() {
+  @computed get Items() {
     return this.carsList.map((make) => make.name);
   }
 
-  @computed get Models() {
-    return this.modelsList.map((model) => model.name);
-  }
-
   @computed get uniqueSet() {
-    return [...new Set(this.Makes)];
+    return [...new Set(this.Items)];
   }
 
   @computed get indexOfLastItem() {
@@ -46,7 +42,7 @@ class ListStore {
   }
 
   @computed get currentModels() {
-    return this.Models.slice(this.indexOfFirstItem, this.indexOfLastItem);
+    return this.Items.slice(this.indexOfFirstItem, this.indexOfLastItem);
   }
 
   @computed get filteredCars() {
@@ -94,7 +90,7 @@ class ListStore {
   }
 
   @computed get totalModels() {
-    return this.Models.length;
+    return this.Items.length;
   }
 
   @action
@@ -102,12 +98,7 @@ class ListStore {
     this.currentPage = number;
   };
 
-  @computed get searchModels() {
-    let searchMatch = new RegExp(this.search, "i");
-    return this.modelsList.filter((car) => searchMatch.test(car.name));
-  }
-
-  @computed get searchMakes() {
+  @computed get searchItems() {
     let searchMatch = new RegExp(this.search, "i");
     return this.carsList.filter((car) => searchMatch.test(car.name));
   }
@@ -116,14 +107,7 @@ class ListStore {
   searchHandler = (e) => {
     let result = e.target.value;
     this.search = result;
-    this.carsList = this.searchMakes;
-  };
-
-  @action
-  searchModelHandler = (e) => {
-    let result = e.target.value;
-    this.search = result;
-    this.modelsList = this.searchModels;
+    this.carsList = this.searchItems;
   };
 
   @action
@@ -158,7 +142,7 @@ class ListStore {
       )
       .then((response) => {
         let ascModels = response.data.item;
-        this.modelsList = ascModels;
+        this.carsList = ascModels;
       });
   };
 
@@ -170,7 +154,7 @@ class ListStore {
       )
       .then((response) => {
         let descModels = response.data.item;
-        this.modelsList = descModels;
+        this.carsList = descModels;
       });
   };
 
@@ -187,20 +171,8 @@ class ListStore {
   };
 
   @action
-  handleModelsCDM = (response) => {
-    let items = response.data.item;
-    this.modelsList = items;
-    this.responseModels = items;
-  };
-
-  @action
-  onReloadMake = () => {
+  onReload = () => {
     this.carsList = this.responseData;
-  };
-
-  @action
-  onReloadModel = () => {
-    this.modelsList = this.responseModels;
   };
 }
 

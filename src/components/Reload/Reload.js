@@ -11,7 +11,7 @@ class Reload extends Component {
   render() {
     return (
       <button
-        onClick={this.listStore.onReloadModel}
+        onClick={this.listStore.onReload}
         className="btn btn-primary"
         data-toggle="button"
         aria-pressed="false"

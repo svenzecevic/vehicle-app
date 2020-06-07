@@ -16,7 +16,7 @@ class CarList extends Component {
     axios
       .get("https://api.baasic.com/v1/project-app/resources/model/")
       .then((response) => {
-        this.listStore.handleModelsCDM(response);
+        this.listStore.handleListCDM(response);
       });
   }
 
