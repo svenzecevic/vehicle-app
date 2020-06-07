@@ -101,11 +101,6 @@ class ListStore {
     this.currentPage = number;
   };
 
-  @computed get searchCars() {
-    let searchMatch = new RegExp(this.search, "i");
-    return this.carsList.filter((car) => searchMatch.test(car.name));
-  }
-
   @computed get searchModels() {
     let searchMatch = new RegExp(this.search, "i");
     return this.modelsList.filter((car) => searchMatch.test(car.name));
@@ -150,13 +145,27 @@ class ListStore {
   };
 
   @action
-  onSortModel = () => {
-    this.render = !this.render;
-    this.sortType = !this.sortType;
-    this.carsList = this.carsList.slice().sort((a, b) => {
-      const isReversed = this.sortType === true ? 1 : -1;
-      return isReversed * a.model.localeCompare(b.model);
-    });
+  onSortModelAsc = () => {
+    axios
+      .get(
+        "https://api.baasic.com/v1/project-app/resources/model/?sort=name|asc"
+      )
+      .then((response) => {
+        let ascModels = response.data.item;
+        this.modelsList = ascModels;
+      });
+  };
+
+  @action
+  onSortModelDesc = () => {
+    axios
+      .get(
+        "https://api.baasic.com/v1/project-app/resources/model/?sort=name|desc"
+      )
+      .then((response) => {
+        let descModels = response.data.item;
+        this.modelsList = descModels;
+      });
   };
 
   @action

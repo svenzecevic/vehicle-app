@@ -2,12 +2,14 @@ import React from "react";
 import CarList from "../components/ModelList/ModelList";
 import Pagination from "../components/Pagination/PaginationModel";
 import Search from "../components/Search/SearchModel";
-import SortButton from "../components/SortButton/Make/SortMakeAsc";
+import SortAsc from "../components/SortButton/Model/SortModelAsc";
+import SortDesc from "../components/SortButton/Model/SortModelDesc";
 
 const List = () => (
   <React.Fragment>
     <Search />
-    <SortButton />
+    <SortAsc />
+    <SortDesc />
     <CarList />
     <Pagination />
   </React.Fragment>
