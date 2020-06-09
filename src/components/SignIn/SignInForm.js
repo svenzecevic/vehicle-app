@@ -15,12 +15,12 @@ class LoginForm extends Component {
         <form className="form-group" onSubmit={this.submit}>
           <div>
             <FormInput
-              type="email"
-              name="email"
-              value={fields.email.value}
-              error={fields.email.error}
+              type="text"
+              name="name"
+              value={fields.name.value}
+              error={fields.name.error}
               onChange={onChange}
-              placeholder="Email Address"
+              placeholder="Username"
             />
           </div>
           <div>
@@ -49,9 +49,9 @@ class LoginForm extends Component {
   }
   submit = (e) => {
     e.preventDefault();
-    let email = this.props.form.fields.email.value;
+    let name = this.props.form.fields.name.value;
     let password = this.props.form.fields.password.value;
-    this.props.onSubmit(email, password);
+    this.props.onSubmit(name, password);
   };
 }
 LoginForm.propTypes = {

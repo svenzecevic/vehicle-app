@@ -1,14 +1,16 @@
 import { observable, action } from "mobx";
 
 class SessionStore {
-  @observable authUser = false;
+  @observable accessToken = "";
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
-  @action setAuthUser = (authUser) => {
-    this.authUser = authUser;
+  @action
+  saveToken = (token) => {
+    this.accessToken = token;
+    console.log(this.accessToken);
   };
 }
 

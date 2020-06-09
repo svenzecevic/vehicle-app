@@ -5,10 +5,10 @@ class LoginStore extends GenericFormStore {
   @observable
   form = {
     fields: {
-      email: {
+      name: {
         value: "",
         error: null,
-        rule: "required|string|email|between:5,25",
+        rule: "required|string|between:5,25",
       },
       password: {
         value: "",
