@@ -70,8 +70,11 @@ class SignUpForm extends Component {
   submit = (e) => {
     e.preventDefault();
     let email = this.props.form.fields.email.value;
-    let passwordOne = this.props.form.fields.passwordOne.value;
-    this.props.onSubmit(email, passwordOne);
+    let password = this.props.form.fields.passwordOne.value;
+    let confirmPassword = this.props.form.fields.passwordTwo.value;
+    let username = this.props.form.fields.username.value;
+
+    this.props.onSubmit(email, password, confirmPassword, username);
   };
 }
 SignUpForm.propTypes = {

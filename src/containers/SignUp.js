@@ -5,6 +5,7 @@ import SignUpStore from "../stores/SignUpStore";
 import { withFirebase } from "../assets/Firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import axios from "../axios-cars";
 
 @inject(() => ({
   store: new SignUpStore(),
@@ -24,12 +25,24 @@ class SignUp extends Component {
     );
   }
 
-  onSubmitForm = (email, passwordOne) => {
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(() => {
-        this.props.history.push("/signin");
-      });
+  onSubmitForm = (mail, pass, confirmPass, name) => {
+    const body = {
+      activationUrl: "http://localhost:3001/make-list",
+      confirmPassword: confirmPass,
+      email: mail,
+      password: pass,
+      userName: name,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios.post("/register", body, config).then((res) => {
+      this.props.history.push("/signin");
+    });
   };
 }
 
