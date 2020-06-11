@@ -13,7 +13,7 @@ class AddButton extends Component {
   render() {
     return (
       <li>
-        <Link to="/edit-page"> Add new vehicle make </Link>
+        <Link to="/add-page"> Add new vehicle make </Link>
       </li>
     );
   }

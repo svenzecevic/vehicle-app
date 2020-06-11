@@ -9,10 +9,9 @@ import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 import PasswordForgetPage from "../../pages/PasswordForgetPage/PasswordForgetPage";
 import ModelPage from "../../pages/ModelPage/ModelPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
-import EditModelPage from "../../pages/EditModelPage/EditModelPage"
+import AddModelPage from "../../pages/AddModelPage/AddModelPage";
 
-
-const Edit = React.lazy(() => import("../../pages/EditMakePage/EditMakePage"));
+const Edit = React.lazy(() => import("../../pages/AddMakePage/AddMakePage"));
 
 const layout = (props) => {
   return (
@@ -25,9 +24,9 @@ const layout = (props) => {
         <Route path="/pw-reset" exact component={ResetPasswordPage} />
         <Route path="/make-list" exact component={MainPage} />
         <Route path="/model-list" exact component={ModelPage} />
-        <Route path="/edit-model" exact component={EditModelPage} />
+        <Route path="/add-model" exact component={AddModelPage} />
         <Route
-          path="/edit-page"
+          path="/add-page"
           exact
           render={() => (
             <Suspense
@@ -35,7 +34,7 @@ const layout = (props) => {
                 <div className="d-flex justify-content-center">
                   <div className="spinner-border" role="status"></div>
                 </div>
-               }
+              }
             >
               <Edit />
             </Suspense>

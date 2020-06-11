@@ -1,8 +1,7 @@
 import { observable } from "mobx";
 import GenericFormStore from "./GenericFormStore";
 
-class EditMakeStore extends GenericFormStore {
-
+class AddMakeStore extends GenericFormStore {
   @observable
   form = {
     fields: {
@@ -19,4 +18,4 @@ class EditMakeStore extends GenericFormStore {
   };
 }
 
-export default EditMakeStore;
+export default AddMakeStore;

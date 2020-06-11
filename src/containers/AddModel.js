@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import EditModelForm from "../components/EditModel/EditModelForm";
+import AddModelForm from "../components/AddModel/AddModelForm";
 import { withRouter } from "react-router-dom";
-import EditModelStore from "../stores/EditMakeStore";
+import AddModelStore from "../stores/AddMakeStore";
 import ListStore from "../stores/ListStore";
 
 @inject(() => ({
-  store: new EditModelStore(),
+  store: new AddModelStore(),
   listStore: new ListStore(),
 }))
 @observer
-class EditModel extends Component {
+class AddModel extends Component {
   render() {
     let { store, listStore } = this.props;
     return (
       <div>
-        <EditModelForm
+        <AddModelForm
           onSubmit={this.onSubmitForm}
           form={store.form}
           listStore={listStore}
@@ -31,4 +31,4 @@ class EditModel extends Component {
   };
 }
 
-export default withRouter(EditModel);
+export default withRouter(AddModel);

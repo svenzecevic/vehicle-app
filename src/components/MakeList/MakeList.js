@@ -20,7 +20,9 @@ class CarList extends Component {
       <div>
         <li>
           {this.listStore.currentMakes.map((car) => {
-            return <VehicleMake make={car} />;
+            return (
+              <VehicleMake make={car} clicked={this.listStore.clickedHandler} />
+            );
           })}
         </li>
       </div>

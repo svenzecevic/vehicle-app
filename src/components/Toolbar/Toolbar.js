@@ -32,7 +32,7 @@ class Toolbar extends Component {
               <AddButton />
             </li>
             <li>
-              <Link to="/edit-model" >Add new vehicle model</Link>
+              <Link to="/add-model">Add new vehicle model</Link>
             </li>
             <li>
               <SignOut />

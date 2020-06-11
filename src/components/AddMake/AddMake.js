@@ -2,41 +2,20 @@ import React, { Component } from "react";
 import FormInput from "../Input/Input";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
+import classes from "./AddMake.module.css";
 
 @observer
-class EditMakeForm extends Component {
-
-  constructor(props){
-    super(props)
-    
-  }
-
-
-componentDidMount(){
-  this.props.listStore.getMakes()
-}
-
+class AddMakeForm extends Component {
   render() {
-    const { form, onChange, listStore } = this.props;
+    const { form, onChange } = this.props;
     const { fields, meta } = form;
 
     return (
-      <div>
-        <form className="border w-75 mx-auto shadow p-3 mb-5 bg-white rounded" onSubmit={this.submit}>
-            <div>
-            <select
-            onChange={listStore.filter.bind(this)}
-          defaultValue={"default"}
+      <div className={classes.add}>
+        <form
+          className="border w-75 mx-auto shadow p-3 mb-5 bg-white rounded"
+          onSubmit={this.submit}
         >
-          <option disabled value="default">
-            Choose a make...
-          </option>
-          <option>All</option>
-          {listStore.dropdownModels.map((opt) => {
-            return <option key={opt.id}> {opt.name} </option>;
-          })}
-        </select>
-            </div>
           <div>
             <FormInput
               type="text"
@@ -64,13 +43,11 @@ componentDidMount(){
   submit = (e) => {
     e.preventDefault();
     let name = this.props.form.fields.name.value;
-    let idArr = this.props.listStore.carsList.map(make => make.id)
-    let id = idArr.toString()
-   this.props.onSubmit(name, id);
+    this.props.onSubmit(name);
   };
 }
 
-EditMakeForm.propTypes = {
+AddMakeForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
@@ -87,4 +64,4 @@ EditMakeForm.propTypes = {
   }).isRequired,
 };
 
-export default EditMakeForm;
+export default AddMakeForm;
