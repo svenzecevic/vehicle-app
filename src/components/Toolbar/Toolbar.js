@@ -15,7 +15,6 @@ class Toolbar extends Component {
   }
 
   render() {
-    let authUser = this.sessionStore.authUser;
     return (
       <header className={classes.Toolbar}>
         <Logo />

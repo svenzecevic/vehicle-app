@@ -1,30 +1,31 @@
 import { action, observable } from "mobx";
+import GenericFormStore from "./GenericFormStore";
 
-class PasswordForgetStore {
-  constructor(rootStore) {
-    this.rootStore = rootStore;
-  }
-
-  @observable email = "";
-  @observable error = null;
+class PasswordForgetStore extends GenericFormStore {
   @observable info = false;
-
-  @action
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this[name] = value;
+  @observable
+  form = {
+    fields: {
+      name: {
+        value: "",
+        error: null,
+        rule: "required|string|between:5,25",
+      },
+    },
+    meta: {
+      isValid: true,
+      error: null,
+    },
   };
 
   @action
-  handleonSubmit = () => {
-    this.email = "";
-    this.error = null;
+  switchInfo = () => {
     this.info = true;
   };
 
   @action
-  handleError = (error) => {
-    this.error = error;
+  resetInfo = () => {
+    this.info = false;
   };
 }
 

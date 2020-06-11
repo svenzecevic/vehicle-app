@@ -1,13 +1,11 @@
-import React from "react"
-import PasswordForget from "../../components/ForgetPassword/ForgetPassword"
-
+import React from "react";
+import ForgetPassword from "../../containers/ForgetPassword";
 
 const PasswordForgetPage = () => (
-    <div>
-      <h1>Password Forget</h1>
-      <PasswordForget />
-    </div>
-  );
+  <div>
+    <h1>Password Forget</h1>
+    <ForgetPassword />
+  </div>
+);
 
-
-export default PasswordForgetPage
+export default PasswordForgetPage;

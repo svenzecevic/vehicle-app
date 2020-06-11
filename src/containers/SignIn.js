@@ -3,9 +3,7 @@ import { observer, inject } from "mobx-react";
 import LoginForm from "../components/SignIn/SignInForm";
 import LoginStore from "../stores/LogInStore";
 import SessionStore from "../stores/SessionStore";
-import { withFirebase } from "../assets/Firebase";
 import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 import axios from "../axios-cars";
 
 @inject(() => ({
@@ -28,7 +26,6 @@ class SignIn extends Component {
   }
 
   onSubmitForm = (name, pass) => {
-    let { sessionStore } = this.props;
     const qs = require("querystring");
 
     const body = {
@@ -56,4 +53,4 @@ class SignIn extends Component {
   };
 }
 
-export default compose(withRouter, withFirebase)(SignIn);
+export default withRouter(SignIn);

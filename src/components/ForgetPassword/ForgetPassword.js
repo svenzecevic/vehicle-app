@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withFirebase } from "../../assets/Firebase";
 import { inject, observer } from "mobx-react";
 import classes from "./ForgetPassword.module.css";
 import { Link, withRouter } from "react-router-dom";
@@ -15,15 +14,6 @@ class PasswordForgetBase extends Component {
 
   onSubmit = (e) => {
     const { email } = this.pwStore;
-
-    this.props.firebase
-      .doPasswordReset(email)
-      .then(() => {
-        this.pwStore.handleonSubmit();
-      })
-      .catch((error) => {
-        this.pwStore.handleError(error);
-      });
 
     e.preventDefault();
   };
@@ -66,6 +56,6 @@ class PasswordForgetBase extends Component {
   }
 }
 
-const PasswordForget = compose(withRouter, withFirebase)(PasswordForgetBase);
+const PasswordForget = withRouter(PasswordForgetBase);
 
 export default PasswordForget;
