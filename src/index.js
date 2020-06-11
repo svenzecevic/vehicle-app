@@ -5,7 +5,6 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "mobx-react";
 import store from "./stores/RootStore";
-import Firebase, { FirebaseContext } from "./assets/Firebase";
 
 ReactDOM.render(
   <Provider
@@ -16,9 +15,7 @@ ReactDOM.render(
     signinStore={store.signinStore}
     pwStore={store.pwStore}
   >
-    <FirebaseContext.Provider value={new Firebase()}>
-      <App />
-    </FirebaseContext.Provider>
+    <App />
   </Provider>,
 
   document.getElementById("root")

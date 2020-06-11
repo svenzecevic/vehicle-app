@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { observer, inject } from "mobx-react";
-import axios from "../../axios-cars";
 import VehicleMake from "../CarItem/VehicleMake";
 
 @inject("listStore")
@@ -13,11 +12,7 @@ class CarList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("https://api.baasic.com/v1/project-app/resources/make/")
-      .then((response) => {
-        this.listStore.handleListCDM(response);
-      });
+    this.listStore.getMakes();
   }
 
   render() {

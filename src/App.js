@@ -1,9 +1,7 @@
 import React from "react";
 import Layout from "./layouts/Layout/Layout";
 import { BrowserRouter } from "react-router-dom";
-import { withFirebase } from "./assets/Firebase";
 import { inject, observer } from "mobx-react";
-import { action } from "mobx";
 
 @inject("store")
 @observer
@@ -15,7 +13,7 @@ class App extends React.Component {
     };
     this.sessionStore = this.props.store.sessionStore;
   }
-
+  /*
   @action
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged((authUser) => {
@@ -28,7 +26,7 @@ class App extends React.Component {
   componentWillUnmount() {
     this.listener();
   }
-
+*/
   render() {
     return (
       <div>
@@ -40,4 +38,4 @@ class App extends React.Component {
   }
 }
 
-export default withFirebase(App);
+export default App;

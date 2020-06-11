@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import classes from "./SignOut.module.css";
 import { inject, observer } from "mobx-react";
 import SessionStore from "../../stores/SessionStore";
-import axios from "axios";
-import { withRouter } from "react-router-dom";
 
 @inject(() => ({
   store: new SessionStore(),

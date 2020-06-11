@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import ForgetPasswordForm from "../components/ForgetPassword/ForgetPasswordForm";
 import PasswordForgetStore from "../stores/PasswordForgetStore";
 import axios from "../axios-cars";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 @inject(() => ({
   store: new PasswordForgetStore(),
@@ -40,6 +40,7 @@ class ForgetPassword extends Component {
     };
     axios.post("/recover-password", body).then((res) => {
       this.props.store.switchInfo();
+      console.log(res);
     });
   };
 }

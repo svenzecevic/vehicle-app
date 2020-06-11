@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import SignUpForm from "../components/SignUp/SignUpForm";
 import SignUpStore from "../stores/SignUpStore";
-import { withFirebase } from "../assets/Firebase";
 import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 import axios from "../axios-cars";
 
 @inject(() => ({
@@ -46,4 +44,4 @@ class SignUp extends Component {
   };
 }
 
-export default compose(withRouter, withFirebase)(SignUp);
+export default withRouter(SignUp);

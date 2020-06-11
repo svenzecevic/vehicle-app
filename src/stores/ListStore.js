@@ -27,6 +27,10 @@ class ListStore {
     return this.carsList.map((make) => make.name);
   }
 
+  @computed get Models(){
+    return this.modelsList.map((model) => model.name )
+  }
+
   @computed get uniqueSet() {
     return [...new Set(this.Items)];
   }
@@ -42,7 +46,7 @@ class ListStore {
   }
 
   @computed get currentModels() {
-    return this.Items.slice(this.indexOfFirstItem, this.indexOfLastItem);
+    return this.Models.slice(this.indexOfFirstItem, this.indexOfLastItem);
   }
 
   @computed get filteredCars() {
@@ -159,21 +163,62 @@ class ListStore {
   };
 
   @action
-  handleListCDM = (response) => {
-    let items = response.data.item;
-    this.carsList = items;
-    this.responseData = items;
-    items.forEach((element) => {
-      if (!this.dropdownModels.some((e) => e.name === element.name)) {
-        this.dropdownModels.push({ ...element });
-      }
-    });
+  getMakes = () => {
+    axios.get("/resources/makes")
+    .then((response) => {
+      let items = response.data.item;
+      this.carsList = items;
+      this.responseData = items;
+      items.forEach((element) => {
+        if (!this.dropdownModels.some((e) => e.name === element.name)) {
+          this.dropdownModels.push({ ...element });
+        }
+      });
+    }  )
+    
   };
+
+  @action
+  getModels = () => {
+    axios.get("/resources/models")
+    .then((response) => {
+      this.modelsList = response.data.item
+      this.responseModels = response.data.item
+    } )
+  }
 
   @action
   onReload = () => {
     this.carsList = this.responseData;
   };
+
+@action
+submitModel = (model, id) => {
+  
+  let modelName = model
+  let modelAbrv = modelName.substring(0, 2)
+
+var data = JSON.stringify({"name": modelName,"abrv": modelAbrv, "makeId": id});
+
+var config = {
+  method: 'post',
+  url: '/resources/models',
+  headers: { 
+    'Authorization': "bearer " + sessionStorage.getItem("authToken"), 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
+
 }
 
 export default ListStore;

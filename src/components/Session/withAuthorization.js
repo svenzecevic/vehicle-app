@@ -1,7 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
-import { withFirebase } from "../../assets/Firebase";
 import { inject, observer } from "mobx-react";
 
 const withAuthorization = (condition) => (Component) => {
@@ -12,7 +10,7 @@ const withAuthorization = (condition) => (Component) => {
       super(props);
       this.sessionStore = this.props.sessionStore;
     }
-
+    /*
     componentDidMount() {
       this.listener = this.props.firebase.auth.onAuthStateChanged(
         (authUser) => {
@@ -22,7 +20,7 @@ const withAuthorization = (condition) => (Component) => {
         }
       );
     }
-
+*/
     componentWillUnmount() {
       this.listener();
     }
@@ -33,7 +31,7 @@ const withAuthorization = (condition) => (Component) => {
     }
   }
 
-  return compose(withRouter, withFirebase)(WithAuthorization);
+  return withRouter(WithAuthorization);
 };
 
 export default withAuthorization;
