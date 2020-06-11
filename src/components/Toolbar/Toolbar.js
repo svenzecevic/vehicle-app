@@ -32,7 +32,9 @@ class Toolbar extends Component {
             <li>
               <AddButton />
             </li>
-            <li>{authUser ? <SignOut /> : null}</li>
+            <li>
+              <SignOut />
+            </li>
           </ul>
         </nav>
       </header>

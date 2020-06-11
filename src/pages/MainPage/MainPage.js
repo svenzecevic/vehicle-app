@@ -14,4 +14,4 @@ const MainPage = (props) => {
 
 const condition = (authUser) => !!authUser;
 
-export default withAuthorization(condition)(MainPage);
+export default MainPage;

@@ -14,10 +14,6 @@ import axios from "../axios-cars";
 }))
 @observer
 class SignIn extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let { store } = this.props;
     return (
@@ -48,9 +44,10 @@ class SignIn extends Component {
     };
 
     axios
-      .post("/login?options=session,sliding", qs.stringify(body), config)
+      .post("/login", qs.stringify(body), config)
       .then((res) => {
-        sessionStore.saveToken(res.data.access_token);
+        let token = res.data.access_token;
+        sessionStorage.setItem("authToken", token);
         this.props.history.push("/make-list");
       })
       .catch((err) => {
