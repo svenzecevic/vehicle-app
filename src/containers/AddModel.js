@@ -26,7 +26,7 @@ class AddModel extends Component {
   }
 
   onSubmitForm = (name, id) => {
-    this.props.listStore.submitModel(name, id);
+    this.props.listStore.submitModel(name);
     this.props.history.push("/make-list");
   };
 }

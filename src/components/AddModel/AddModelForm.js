@@ -61,9 +61,7 @@ class AddMakeForm extends Component {
   submit = (e) => {
     e.preventDefault();
     let name = this.props.form.fields.name.value;
-    let idArr = this.props.listStore.carsList.map((make) => make.id);
-    let id = idArr.toString();
-    this.props.onSubmit(name, id);
+    this.props.onSubmit(name);
   };
 }
 

@@ -42,8 +42,7 @@ class AddMakeForm extends Component {
 
   submit = (e) => {
     e.preventDefault();
-    let name = this.props.form.fields.name.value;
-    this.props.onSubmit(name);
+    this.props.onSubmit(this.props.form.fields.name.value);
   };
 }
 

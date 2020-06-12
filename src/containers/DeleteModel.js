@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import DeleteModelStore from "../stores/EditModelStore";
+import EditModelStore from "../stores/EditModelStore";
 import DeleteModelForm from "../components/DeleteModel/DeleteModelForm";
 import { withRouter } from "react-router-dom";
-import axios from "../axios-cars";
 
 @inject(() => ({
-  store: new DeleteModelStore(),
+  store: new EditModelStore(),
 }))
 @observer
 class DeleteModel extends Component {
   componentDidMount = () => {
     this.props.store.getModels();
-    this.props.store.restartInfo();
   };
 
   onSubmitForm = () => {

@@ -7,36 +7,12 @@ import SessionStore from "../../stores/SessionStore";
   store: new SessionStore(),
 }))
 class SignOut extends Component {
-  test = () => {
-    let token = sessionStorage.getItem("authToken");
-    let axios = require("axios");
-    let data = JSON.stringify({
-      "token": token,
-      "type": "bearer",
-    });
-
-    var config = {
-      method: "delete",
-      url: "https://api.baasic.com/v1/szecevic-cars/login/",
-      headers: {
-        "Authorization": "bearer " + token,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        this.props.history.push("/signin");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   render() {
     return (
-      <button onClick={this.test} className={classes.signOut}>
+      <button
+        onClick={this.props.store.handleSignOut}
+        className={classes.signOut}
+      >
         SignOut
       </button>
     );

@@ -190,9 +190,11 @@ class ListStore {
   };
 
   @action
-  submitModel = (model, id) => {
+  submitModel = (model) => {
     let modelName = model;
     let modelAbrv = modelName.substring(0, 2);
+    let idArr = this.carsList.map((make) => make.id);
+    let id = idArr.toString();
 
     var data = JSON.stringify({
       "name": modelName,
@@ -203,6 +205,31 @@ class ListStore {
     var config = {
       method: "post",
       url: "/resources/models",
+      headers: {
+        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  @action
+  addMake = (make) => {
+    let makeAbrv = make.substring(0, 2);
+
+    var data = JSON.stringify({ "name": make, "abrv": makeAbrv });
+
+    var config = {
+      method: "post",
+      url: "/resources/makes",
       headers: {
         "Authorization": "bearer " + sessionStorage.getItem("authToken"),
         "Content-Type": "application/json",

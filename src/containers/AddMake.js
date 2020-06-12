@@ -3,7 +3,6 @@ import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
 import AddMakeForm from "../components/AddMake/AddMakeForm";
 import { withRouter } from "react-router-dom";
-import axios from "../axios-cars";
 
 @inject(() => ({
   store: new AddMakeStore(),
@@ -24,28 +23,7 @@ class AddMake extends Component {
   }
 
   onSubmitForm = (make) => {
-    let makeName = make;
-    let makeAbrv = makeName.substring(0, 2);
-
-    var data = JSON.stringify({ "name": makeName, "abrv": makeAbrv });
-
-    var config = {
-      method: "post",
-      url: "/resources/makes",
-      headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.props.store.addMake(make);
   };
 }
 

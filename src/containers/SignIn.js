@@ -4,7 +4,6 @@ import LoginForm from "../components/SignIn/SignInForm";
 import LoginStore from "../stores/LogInStore";
 import SessionStore from "../stores/SessionStore";
 import { withRouter } from "react-router-dom";
-import axios from "../axios-cars";
 
 @inject(() => ({
   store: new LoginStore(),
@@ -26,30 +25,10 @@ class SignIn extends Component {
   }
 
   onSubmitForm = (name, pass) => {
-    const qs = require("querystring");
-
-    const body = {
-      grant_type: "password",
-      username: name,
-      password: pass,
-    };
-
-    const config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    };
-
-    axios
-      .post("/login", qs.stringify(body), config)
-      .then((res) => {
-        let token = res.data.access_token;
-        sessionStorage.setItem("authToken", token);
-        this.props.history.push("/make-list");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.props.sessionStore.submitSignIn(name, pass);
+    if (this.props.sessionStore.routerSignin) {
+      this.props.history.push("/make-list");
+    }
   };
 }
 

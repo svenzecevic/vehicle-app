@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import GenericFormStore from "./GenericFormStore";
+import axios from "../axios-cars";
 
 class PasswordForgetStore extends GenericFormStore {
   @observable info = false;
@@ -24,8 +25,15 @@ class PasswordForgetStore extends GenericFormStore {
   };
 
   @action
-  resetInfo = () => {
-    this.info = false;
+  pwSubmit = (n) => {
+    const body = {
+      recoverUrl: "http://localhost:3000/pw-reset",
+      userName: n,
+    };
+    axios.post("/recover-password", body).then((res) => {
+      this.props.store.switchInfo();
+      console.log(res);
+    });
   };
 }
 

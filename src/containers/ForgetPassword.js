@@ -12,7 +12,6 @@ import { withRouter } from "react-router-dom";
 class ForgetPassword extends Component {
   constructor(props) {
     super(props);
-    this.props.store.resetInfo();
   }
   render() {
     let { store } = this.props;
@@ -32,16 +31,7 @@ class ForgetPassword extends Component {
   }
 
   onSubmitForm = (n) => {
-    const name = n;
-
-    const body = {
-      recoverUrl: "http://localhost:3000/pw-reset",
-      userName: name,
-    };
-    axios.post("/recover-password", body).then((res) => {
-      this.props.store.switchInfo();
-      console.log(res);
-    });
+    this.props.store.pwSubmit(n);
   };
 }
 
