@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
 import AddMakeForm from "../components/AddMake/AddMakeForm";
-import { withRouter } from "react-router-dom";
 
 @inject(() => ({
   store: new AddMakeStore(),
@@ -27,4 +26,4 @@ class AddMake extends Component {
   };
 }
 
-export default withRouter(AddMake);
+export default AddMake;

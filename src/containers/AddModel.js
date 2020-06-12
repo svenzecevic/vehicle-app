@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddModelForm from "../components/AddModel/AddModelForm";
-import { withRouter } from "react-router-dom";
 import AddModelStore from "../stores/AddMakeStore";
 import ListStore from "../stores/ListStore";
 
@@ -27,8 +26,7 @@ class AddModel extends Component {
 
   onSubmitForm = (name, id) => {
     this.props.listStore.submitModel(name);
-    this.props.history.push("/make-list");
   };
 }
 
-export default withRouter(AddModel);
+export default AddModel;
