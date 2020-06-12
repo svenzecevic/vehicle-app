@@ -29,6 +29,9 @@ class Toolbar extends Component {
               <Link to="/model-list">Vehicle Models</Link>{" "}
             </li>
             <li>
+              <Link to="/edit-model">Edit vehicle make</Link>
+            </li>
+            <li>
               <AddButton />
             </li>
             <li>

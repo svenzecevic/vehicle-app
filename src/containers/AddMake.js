@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
-import AddMakeForm from "../components/AddMake/AddMake";
+import AddMakeForm from "../components/AddMake/AddMakeForm";
 import { withRouter } from "react-router-dom";
 import axios from "../axios-cars";
 
