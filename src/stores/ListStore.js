@@ -116,50 +116,34 @@ class ListStore {
 
   @action
   onSortMakeAsc = () => {
-    axios
-      .get(
-        "https://api.baasic.com/v1/project-app/resources/make/?sort=name|asc"
-      )
-      .then((response) => {
-        let ascMakes = response.data.item;
-        this.carsList = ascMakes;
-      });
+    axios.get("/resources/makes/?sort=name|asc").then((response) => {
+      let ascMakes = response.data.item;
+      this.carsList = ascMakes;
+    });
   };
 
   @action
   onSortMakeDesc = () => {
-    axios
-      .get(
-        "https://api.baasic.com/v1/project-app/resources/make/?sort=name|desc"
-      )
-      .then((response) => {
-        let descMakes = response.data.item;
-        this.carsList = descMakes;
-      });
+    axios.get("/resources/makes/?sort=name|desc").then((response) => {
+      let descMakes = response.data.item;
+      this.carsList = descMakes;
+    });
   };
 
   @action
   onSortModelAsc = () => {
-    axios
-      .get(
-        "https://api.baasic.com/v1/project-app/resources/model/?sort=name|asc"
-      )
-      .then((response) => {
-        let ascModels = response.data.item;
-        this.carsList = ascModels;
-      });
+    axios.get("/resources/models/?sort=name|asc").then((response) => {
+      let ascModels = response.data.item;
+      this.modelsList = ascModels;
+    });
   };
 
   @action
   onSortModelDesc = () => {
-    axios
-      .get(
-        "https://api.baasic.com/v1/project-app/resources/model/?sort=name|desc"
-      )
-      .then((response) => {
-        let descModels = response.data.item;
-        this.carsList = descModels;
-      });
+    axios.get("/resources/models/?sort=name|desc").then((response) => {
+      let descModels = response.data.item;
+      this.modelsList = descModels;
+    });
   };
 
   @action
