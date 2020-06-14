@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import EditStore from "../stores/EditStore";
-import DeleteModelForm from "../components/DeleteModel/DeleteModelForm";
+import DeleteMakeForm from "../components/DeleteMake/DeleteMakeForm";
 import { withRouter } from "react-router-dom";
 
 @inject(() => ({
@@ -10,25 +10,25 @@ import { withRouter } from "react-router-dom";
 @observer
 class DeleteModel extends Component {
   componentDidMount = () => {
-    this.props.store.getModels();
+    this.props.store.getMakes();
   };
 
   onSubmitForm = () => {
-    this.props.store.handleEdit();
+    this.props.store.handleEditMake();
   };
 
   render() {
     let { store } = this.props;
     return (
       <div>
-        <DeleteModelForm
+        <DeleteMakeForm
           onSubmit={this.onSubmitForm}
           form={store.form}
           onChange={store.onFieldChange}
           store={store}
         />
-        {this.props.store.info ? (
-          <p className="text-danger">Vehicle model has been deleted!</p>
+        {this.props.store.makeInfo ? (
+          <p className="text-danger">Vehicle make has been deleted!</p>
         ) : null}
       </div>
     );

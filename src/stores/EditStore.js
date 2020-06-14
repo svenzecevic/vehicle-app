@@ -1,9 +1,8 @@
 import { action, computed, observable } from "mobx";
 import GenericFormStore from "./GenericFormStore";
 import axios from "../axios-cars";
-import { checkPropTypes } from "prop-types";
 
-class AddMakeStore extends GenericFormStore {
+class EditStore extends GenericFormStore {
   @observable
   form = {
     fields: {
@@ -20,10 +19,19 @@ class AddMakeStore extends GenericFormStore {
   };
   @observable models = [];
   @observable info = false;
+  @observable makes = [];
+  @observable makeInfo = false;
+
+  @computed get filteredModels() {
+    let filterMatch = new RegExp(this.filterState, "i");
+    return this.models.filter(
+      (car) => !this.filterState || filterMatch.test(car.name)
+    );
+  }
 
   @computed get filteredMakes() {
     let filterMatch = new RegExp(this.filterState, "i");
-    return this.models.filter(
+    return this.makes.filter(
       (car) => !this.filterState || filterMatch.test(car.name)
     );
   }
@@ -33,8 +41,15 @@ class AddMakeStore extends GenericFormStore {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
     this.filterState = label;
-    this.models = this.filteredMakes;
-    console.log(this.models);
+    this.models = this.filteredModels;
+  };
+
+  @action
+  filterMakes = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    let label = e.nativeEvent.target[index].text;
+    this.filterState = label;
+    this.makes = this.filteredMakes;
   };
 
   @action
@@ -45,8 +60,10 @@ class AddMakeStore extends GenericFormStore {
   };
 
   @action
-  restartInfo = () => {
-    this.info = false;
+  getMakes = () => {
+    axios.get("/resources/makes?rpp=100").then((res) => {
+      this.makes = res.data.item;
+    });
   };
 
   @action
@@ -64,6 +81,22 @@ class AddMakeStore extends GenericFormStore {
       this.info = true;
     });
   };
+
+  @action
+  handleEditMake = () => {
+    let id = this.makes[0].id;
+
+    let config = {
+      method: "delete",
+      url: "/resources/makes/" + id,
+      headers: {
+        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+      },
+    };
+    axios(config).then(() => {
+      this.makeInfo = true;
+    });
+  };
 }
 
-export default AddMakeStore;
+export default EditStore;

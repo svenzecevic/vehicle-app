@@ -10,7 +10,7 @@ import PasswordForgetPage from "../../pages/PasswordForgetPage/PasswordForgetPag
 import ModelPage from "../../pages/ModelPage/ModelPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import AddModelPage from "../../pages/AddModelPage/AddModelPage";
-import EditModelPage from "../../pages/EditModelPage/EditModelPage";
+import EditPage from "../../pages/EditPage/EditPage";
 
 const Edit = React.lazy(() => import("../../pages/AddMakePage/AddMakePage"));
 
@@ -26,7 +26,7 @@ const layout = (props) => {
         <Route path="/make-list" exact component={MainPage} />
         <Route path="/model-list" exact component={ModelPage} />
         <Route path="/add-model" exact component={AddModelPage} />
-        <Route path="/edit-model" exact component={EditModelPage} />
+        <Route path="/edit-page" exact component={EditPage} />
         <Route
           path="/add-page"
           exact

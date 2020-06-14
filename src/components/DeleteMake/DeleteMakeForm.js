@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import classes from "../AddMake/AddMake.module.css";
 
 @observer
-class DeleteModelForm extends Component {
+class DeleteMakeForm extends Component {
   render() {
     const { form, onChange, store } = this.props;
     const { fields, meta } = form;
@@ -16,11 +16,14 @@ class DeleteModelForm extends Component {
           onSubmit={this.submit}
         >
           <div>
-            <select onChange={store.filter.bind(this)} defaultValue={"default"}>
+            <select
+              onChange={store.filterMakes.bind(this)}
+              defaultValue={"default"}
+            >
               <option disabled value="default">
-                Choose a model...
+                Choose a make...
               </option>
-              {store.models.map((opt) => {
+              {store.makes.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>
@@ -44,7 +47,7 @@ class DeleteModelForm extends Component {
   };
 }
 
-DeleteModelForm.propTypes = {
+DeleteMakeForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
@@ -61,4 +64,4 @@ DeleteModelForm.propTypes = {
   }).isRequired,
 };
 
-export default DeleteModelForm;
+export default DeleteMakeForm;
