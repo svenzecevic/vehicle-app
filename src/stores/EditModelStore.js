@@ -39,7 +39,7 @@ class AddMakeStore extends GenericFormStore {
 
   @action
   getModels = () => {
-    axios.get("/resources/models").then((res) => {
+    axios.get("/resources/models?rpp=100").then((res) => {
       this.models = res.data.item;
     });
   };

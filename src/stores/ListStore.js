@@ -22,6 +22,8 @@ class ListStore {
   @observable modelsList = [];
   @observable modelsData = [];
   @observable responseModels = [];
+  @observable MakePageNum = [];
+  @observable ModelPageNum = [];
 
   @computed get Items() {
     return this.carsList.map((make) => make.name);
@@ -148,7 +150,7 @@ class ListStore {
 
   @action
   getMakes = () => {
-    axios.get("/resources/makes").then((response) => {
+    axios.get("/resources/makes?rpp=100").then((response) => {
       let items = response.data.item;
       this.carsList = items;
       this.responseData = items;
@@ -162,7 +164,7 @@ class ListStore {
 
   @action
   getModels = () => {
-    axios.get("/resources/models").then((response) => {
+    axios.get("/resources/models?rpp=100").then((response) => {
       this.modelsList = response.data.item;
       this.responseModels = response.data.item;
     });
@@ -171,6 +173,7 @@ class ListStore {
   @action
   onReload = () => {
     this.carsList = this.responseData;
+    this.modelsList = this.responseModels;
   };
 
   @action
@@ -228,6 +231,30 @@ class ListStore {
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  @action
+  getMakePageNum = () => {
+    for (let i = 1; i <= Math.ceil(this.totalMakes / this.itemsPerPage); i++) {
+      this.MakePageNum.push(i);
+    }
+  };
+
+  @action
+  removeMakePageNum = () => {
+    this.MakePageNum = [];
+  };
+
+  @action
+  getModelPageNum = () => {
+    for (let i = 1; i <= Math.ceil(this.totalModels / this.itemsPerPage); i++) {
+      this.ModelPageNum.push(i);
+    }
+  };
+
+  @action
+  removeModelPageNum = () => {
+    this.ModelPageNum = [];
   };
 }
 

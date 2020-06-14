@@ -10,19 +10,19 @@ class Pagination extends Component {
     this.listStore = this.props.listStore;
   }
 
+  componentWillMount = () => {
+    this.listStore.getMakePageNum();
+  };
+
+  componentWillUnmount = () => {
+    this.listStore.removeMakePageNum();
+  };
+
   render() {
-    let pageNumbers = [];
-    for (
-      let i = 1;
-      i <= Math.ceil(this.listStore.totalMakes / this.listStore.itemsPerPage);
-      i++
-    ) {
-      pageNumbers.push(i);
-    }
     return (
       <nav>
         <ul className="pagination justify-content-center">
-          {pageNumbers.map((number) => (
+          {this.listStore.MakePageNum.map((number) => (
             <li key={number} className="page-item">
               <Link
                 onClick={() => this.listStore.setCurrentPage(number)}

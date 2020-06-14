@@ -25,7 +25,7 @@ class DeleteModel extends Component {
           onSubmit={this.onSubmitForm}
           form={store.form}
           onChange={store.onFieldChange}
-          editStore={store}
+          store={store}
         />
         {this.props.store.info ? (
           <p classname="text-danger">Vehicle make has been deleted!</p>
