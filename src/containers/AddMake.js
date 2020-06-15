@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
 import AddMakeForm from "../components/AddMake/AddMakeForm";
+import ListStore from "../stores/ListStore";
 
 @inject(() => ({
   store: new AddMakeStore(),
+  listStore: new ListStore(),
 }))
 @observer
 class AddMake extends Component {
@@ -22,7 +24,7 @@ class AddMake extends Component {
   }
 
   onSubmitForm = (make) => {
-    this.props.store.addMake(make);
+    this.props.listStore.addMake(make);
   };
 }
 
