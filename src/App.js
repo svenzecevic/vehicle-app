@@ -3,30 +3,15 @@ import Layout from "./layouts/Layout/Layout";
 import { BrowserRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
-@inject("store")
+@inject("listStore")
 @observer
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      authUser: null,
-    };
-    this.sessionStore = this.props.store.sessionStore;
-  }
-  /*
-  @action
-  componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged((authUser) => {
-      authUser
-        ? (this.sessionStore.authUser = authUser)
-        : (this.sessionStore.authUser = authUser);
-    });
+    this.listStore = this.props.listStore;
+    this.listStore.getMakes();
   }
 
-  componentWillUnmount() {
-    this.listener();
-  }
-*/
   render() {
     return (
       <div>
