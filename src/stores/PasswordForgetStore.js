@@ -31,7 +31,7 @@ class PasswordForgetStore extends GenericFormStore {
       userName: n,
     };
     axios.post("/recover-password", body).then((res) => {
-      this.props.store.switchInfo();
+      this.switchInfo();
       console.log(res);
     });
   };

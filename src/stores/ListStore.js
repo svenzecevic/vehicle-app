@@ -238,7 +238,6 @@ class ListStore {
     for (let i = 1; i <= Math.ceil(this.totalMakes / this.itemsPerPage); i++) {
       this.MakePageNum.push(i);
     }
-    console.log(this.carsList);
   };
 
   @action
