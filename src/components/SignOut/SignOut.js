@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 import classes from "./SignOut.module.css";
 import { inject, observer } from "mobx-react";
-import SessionStore from "../../stores/SessionStore";
+import { withRouter } from "react-router-dom";
 
-@inject(() => ({
-  store: new SessionStore(),
-}))
+@inject("sessionStore")
 class SignOut extends Component {
+  constructor(props) {
+    super(props);
+    this.sessionStore = this.props.sessionStore;
+  }
+
+  onSignOut = () => {
+    this.sessionStore.handleSignOut();
+    this.props.history.push("/signin");
+  };
+
   render() {
     return (
-      <button
-        onClick={this.props.store.handleSignOut}
-        className={classes.signOut}
-      >
+      <button onClick={this.onSignOut} className={classes.signOut}>
         SignOut
       </button>
     );
   }
 }
 
-export default SignOut;
+export default withRouter(SignOut);

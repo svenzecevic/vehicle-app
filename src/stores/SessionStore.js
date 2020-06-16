@@ -30,7 +30,7 @@ class SessionStore {
 
     axios(config)
       .then(function (response) {
-        this.props.history.push("/signin");
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
