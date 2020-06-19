@@ -6,8 +6,9 @@ class SessionStore {
     this.rootStore = rootStore;
   }
 
-  @observable routerSignin = false;
-  @observable routerSignup = false;
+  @observable routerSignIn = false;
+  @observable routerSignUp = false;
+  @observable routerSignOut = false;
 
   @action
   handleSignOut = () => {
@@ -29,8 +30,8 @@ class SessionStore {
     };
 
     axios(config)
-      .then(function (response) {
-        console.log(response);
+      .then(() => {
+        this.routerSignOut = true;
       })
       .catch(function (error) {
         console.log(error);

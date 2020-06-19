@@ -27,7 +27,7 @@ class DeleteModel extends Component {
           onChange={store.onFieldChange}
           store={store}
         />
-        {this.props.store.makeInfo ? (
+        {store.makeInfo ? (
           <p className="text-danger">Vehicle make has been deleted!</p>
         ) : null}
       </div>

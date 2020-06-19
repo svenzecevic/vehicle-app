@@ -12,7 +12,9 @@ class SignOut extends Component {
 
   onSignOut = () => {
     this.sessionStore.handleSignOut();
-    this.props.history.push("/signin");
+    if (this.sessionStore.routerSignOut) {
+      this.props.history.push("/signin");
+    }
   };
 
   render() {

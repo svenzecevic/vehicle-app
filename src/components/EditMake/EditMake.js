@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import FormInput from "../Input/Input";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
-import classes from "./AddModel.module.css";
+import classes from "../AddModel/AddModel.module.css";
 
 @observer
-class AddModelForm extends Component {
+class EditMakeForm extends Component {
   componentDidMount() {
-    this.props.listStore.getMakes();
+    this.props.store.getMakes();
   }
-
   render() {
-    const { form, onChange, listStore } = this.props;
+    const { form, onChange, store } = this.props;
     const { fields, meta } = form;
 
     return (
@@ -22,14 +21,14 @@ class AddModelForm extends Component {
         >
           <div>
             <select
-              onChange={listStore.filter.bind(this)}
+              onChange={store.filterMakes.bind(this)}
               defaultValue={"default"}
             >
               <option disabled value="default">
                 Choose a make...
               </option>
               <option>All</option>
-              {listStore.dropdownModels.map((opt) => {
+              {store.makes.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>
@@ -41,7 +40,7 @@ class AddModelForm extends Component {
               value={fields.name.value}
               error={fields.name.error}
               onChange={onChange}
-              placeholder="Vehicle model"
+              placeholder="Edit vehicle make"
             />
           </div>
           {meta.error ? <div> {meta.error} </div> : null}
@@ -65,7 +64,7 @@ class AddModelForm extends Component {
   };
 }
 
-AddModelForm.propTypes = {
+EditMakeForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
@@ -82,4 +81,4 @@ AddModelForm.propTypes = {
   }).isRequired,
 };
 
-export default AddModelForm;
+export default EditMakeForm;

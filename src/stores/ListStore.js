@@ -16,7 +16,7 @@ class ListStore {
   @observable data = {};
   @observable editInfo = false;
   @observable caritems = [];
-  @observable filterState = [];
+  @observable filterStateModels = [];
   @observable search = [];
   @observable responseData = [];
   @observable modelsList = [];
@@ -58,6 +58,13 @@ class ListStore {
     );
   }
 
+  @computed get filteredModels() {
+    let filterMatch = new RegExp(this.filterStateModels, "i");
+    return this.modelsList.filter(
+      (car) => !this.filterStateModels || filterMatch.test(car.name)
+    );
+  }
+
   @action
   filter = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
@@ -67,6 +74,18 @@ class ListStore {
       this.carsList = this.responseData;
     } else {
       this.carsList = this.filteredCars;
+    }
+  };
+
+  @action
+  filterModels = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    let label = e.nativeEvent.target[index].text;
+    this.filterStateModels = label;
+    if (label === "All") {
+      this.modelsList = this.responseModels;
+    } else {
+      this.modelsList = this.filteredModels;
     }
   };
 
@@ -183,13 +202,13 @@ class ListStore {
     let idArr = this.carsList.map((make) => make.id);
     let id = idArr.toString();
 
-    var data = JSON.stringify({
+    let data = JSON.stringify({
       "name": modelName,
       "abrv": modelAbrv,
       "makeId": id,
     });
 
-    var config = {
+    let config = {
       method: "post",
       url: "/resources/models",
       headers: {
@@ -212,9 +231,9 @@ class ListStore {
   addMake = (make) => {
     let makeAbrv = make.substring(0, 2);
 
-    var data = JSON.stringify({ "name": make, "abrv": makeAbrv });
+    let data = JSON.stringify({ "name": make, "abrv": makeAbrv });
 
-    var config = {
+    let config = {
       method: "post",
       url: "/resources/makes",
       headers: {

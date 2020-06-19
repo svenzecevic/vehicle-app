@@ -21,18 +21,22 @@ class EditStore extends GenericFormStore {
   @observable info = false;
   @observable makes = [];
   @observable makeInfo = false;
+  @observable filterStateMake = [];
+  @observable filterStateModel = [];
+  @observable editMakeInfo = false;
+  @observable editModelInfo = false;
 
   @computed get filteredModels() {
-    let filterMatch = new RegExp(this.filterState, "i");
+    let filterMatch = new RegExp(this.filterStateModel, "i");
     return this.models.filter(
-      (car) => !this.filterState || filterMatch.test(car.name)
+      (car) => !this.filterStateModel || filterMatch.test(car.name)
     );
   }
 
   @computed get filteredMakes() {
-    let filterMatch = new RegExp(this.filterState, "i");
+    let filterMatch = new RegExp(this.filterStateMake, "i");
     return this.makes.filter(
-      (car) => !this.filterState || filterMatch.test(car.name)
+      (car) => !this.filterStateMake || filterMatch.test(car.name)
     );
   }
 
@@ -40,7 +44,7 @@ class EditStore extends GenericFormStore {
   filter = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
-    this.filterState = label;
+    this.filterStateModel = label;
     this.models = this.filteredModels;
   };
 
@@ -48,7 +52,7 @@ class EditStore extends GenericFormStore {
   filterMakes = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
-    this.filterState = label;
+    this.filterStateMake = label;
     this.makes = this.filteredMakes;
   };
 
@@ -96,6 +100,70 @@ class EditStore extends GenericFormStore {
     axios(config).then(() => {
       this.makeInfo = true;
     });
+  };
+
+  @action
+  submitEditMake = (make) => {
+    let makeName = make;
+    let makeAbrv = makeName.substring(0, 2);
+    let idArr = this.makes.map((make) => make.id);
+    let makeId = idArr.toString();
+
+    let data = JSON.stringify({
+      "name": makeName,
+      "abrv": makeAbrv,
+      "id": makeId,
+    });
+
+    let config = {
+      method: "put",
+      url: "/resources/makes/" + makeId,
+      headers: {
+        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(() => {
+        this.editMakeInfo = true;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  @action
+  submitEditModel = (model) => {
+    let modelName = model;
+    let modelAbrv = modelName.substring(0, 2);
+    let idArrModel = this.models.map((model) => model.id);
+    let modelId = idArrModel.toString();
+
+    let data = JSON.stringify({
+      "name": modelName,
+      "abrv": modelAbrv,
+      "id": modelId,
+    });
+
+    let config = {
+      method: "put",
+      url: "/resources/models/" + modelId,
+      headers: {
+        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(() => {
+        this.editModelInfo = true;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 }
 

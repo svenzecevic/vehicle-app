@@ -32,6 +32,9 @@ class Toolbar extends Component {
               <Link to="/edit-page">Edit</Link>
             </li>
             <li>
+              <Link to="/delete-page">Delete</Link>
+            </li>
+            <li>
               <AddButton />
             </li>
             <li>

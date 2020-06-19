@@ -1,16 +1,16 @@
 import React from "react";
-import DeleteModel from "../../containers/DeleteModel";
-import DeleteMake from "../../containers/DeleteMake";
+import EditMake from "../../containers/EditMake";
+import EditModel from "../../containers/EditModel";
 import Toolbar from "../../components/Toolbar/Toolbar";
 
 const EditPage = () => (
   <React.Fragment>
     <Toolbar />
-    <h2>Delete vehicle make</h2>
-    <DeleteMake />
+    <h1>Edit vehicle make</h1>
+    <EditMake />
     <br />
-    <h2>Edit vehicle model</h2>
-    <DeleteModel />;
+    <h1>Edit vehicle model</h1>
+    <EditModel />
   </React.Fragment>
 );
 

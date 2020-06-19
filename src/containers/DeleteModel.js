@@ -27,7 +27,7 @@ class DeleteModel extends Component {
           onChange={store.onFieldChange}
           store={store}
         />
-        {this.props.store.info ? (
+        {store.info ? (
           <p className="text-danger">Vehicle model has been deleted!</p>
         ) : null}
       </div>
