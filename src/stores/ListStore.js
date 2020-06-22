@@ -212,7 +212,7 @@ class ListStore {
       method: "post",
       url: "/resources/models",
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
         "Content-Type": "application/json",
       },
       data: data,
@@ -237,7 +237,7 @@ class ListStore {
       method: "post",
       url: "/resources/makes",
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
         "Content-Type": "application/json",
       },
       data: data,

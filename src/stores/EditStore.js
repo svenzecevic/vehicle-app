@@ -78,7 +78,7 @@ class EditStore extends GenericFormStore {
       method: "delete",
       url: "/resources/models/" + id,
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
       },
     };
     axios(config).then(() => {
@@ -94,7 +94,7 @@ class EditStore extends GenericFormStore {
       method: "delete",
       url: "/resources/makes/" + id,
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
       },
     };
     axios(config).then(() => {
@@ -119,7 +119,7 @@ class EditStore extends GenericFormStore {
       method: "put",
       url: "/resources/makes/" + makeId,
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
         "Content-Type": "application/json",
       },
       data: data,
@@ -151,7 +151,7 @@ class EditStore extends GenericFormStore {
       method: "put",
       url: "/resources/models/" + modelId,
       headers: {
-        "Authorization": "bearer " + sessionStorage.getItem("authToken"),
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
         "Content-Type": "application/json",
       },
       data: data,

@@ -12,7 +12,7 @@ class SessionStore {
 
   @action
   handleSignOut = () => {
-    let token = sessionStorage.getItem("authToken");
+    let token = localStorage.getItem("authToken");
     let axios = require("axios");
     let data = JSON.stringify({
       "token": token,
@@ -58,7 +58,7 @@ class SessionStore {
       .post("/login", qs.stringify(body), config)
       .then((res) => {
         let token = res.data.access_token;
-        sessionStorage.setItem("authToken", token);
+        localStorage.setItem("authToken", token);
         this.routerSignin = true;
       })
       .catch((err) => {
