@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
+import AddFormStore from "../stores/AddFormStore";
 import AddMakeForm from "../components/AddMake/AddMakeForm";
-import ListStore from "../stores/ListStore";
+import { withRouter } from "react-router-dom";
 
 @inject(() => ({
-  store: new AddMakeStore(),
-  listStore: new ListStore(),
+  store: new AddFormStore(),
+  addMakeStore: new AddMakeStore(),
 }))
 @observer
 class AddMake extends Component {
   render() {
-    let { store } = this.props;
+    let { store, addMakeStore } = this.props;
     return (
       <div>
         <AddMakeForm
@@ -22,10 +23,10 @@ class AddMake extends Component {
       </div>
     );
   }
-
   onSubmitForm = (make) => {
-    this.props.listStore.addMake(make);
+    this.props.addMakeStore.addMake(make);
+    this.props.history.push("/make-list");
   };
 }
 
-export default AddMake;
+export default withRouter(AddMake);

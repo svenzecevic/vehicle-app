@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { inject } from "mobx-react";
 
-@inject("listStore")
+@inject("makeListStore")
 class SortMakeAsc extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.listStore;
+    this.makeListStore = this.props.makeListStore;
   }
 
   render() {
     return (
       <button
-        onClick={this.listStore.onSortMakeAsc}
+        onClick={this.makeListStore.onSortAsc}
         className="btn btn-primary"
         data-toggle="button"
         aria-pressed="false"

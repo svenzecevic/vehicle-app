@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { inject } from "mobx-react";
 
-@inject("listStore")
+@inject("modelListStore")
 class Reload extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.listStore;
+    this.modelListStore = this.props.modelListStore;
   }
 
   render() {
     return (
       <button
-        onClick={this.listStore.onReload}
+        onClick={this.modelListStore.onReload}
         className="btn btn-primary"
         data-toggle="button"
         aria-pressed="false"

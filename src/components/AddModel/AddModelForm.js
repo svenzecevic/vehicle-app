@@ -7,11 +7,11 @@ import classes from "./AddModel.module.css";
 @observer
 class AddModelForm extends Component {
   componentDidMount() {
-    this.props.listStore.getMakes();
+    this.props.addModelStore.getMakes();
   }
 
   render() {
-    const { form, onChange, listStore } = this.props;
+    const { form, onChange, addModelStore } = this.props;
     const { fields, meta } = form;
 
     return (
@@ -22,14 +22,14 @@ class AddModelForm extends Component {
         >
           <div>
             <select
-              onChange={listStore.filter.bind(this)}
+              onChange={addModelStore.filter.bind(this)}
               defaultValue={"default"}
             >
               <option disabled value="default">
                 Choose a make...
               </option>
               <option>All</option>
-              {listStore.dropdownModels.map((opt) => {
+              {addModelStore.dropdownMakes.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>

@@ -14,6 +14,9 @@ ReactDOM.render(
     signupStore={store.signupStore}
     signinStore={store.signinStore}
     pwStore={store.pwStore}
+    makeListStore={store.makeListStore}
+    modelListStore={store.modelListStore}
+    baseListStore={store.baseListStore}
   >
     <App />
   </Provider>,

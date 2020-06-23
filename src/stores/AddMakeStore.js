@@ -1,20 +1,32 @@
-import { observable } from "mobx";
-import GenericFormStore from "./GenericFormStore";
+import { action, observable } from "mobx";
+import axios from "../axios-cars";
 
-class AddMakeStore extends GenericFormStore {
-  @observable
-  form = {
-    fields: {
-      name: {
-        value: "",
-        error: null,
-        rule: "required|string|between:1,25",
+class AddMakeStore {
+  @observable info = false;
+
+  @action
+  addMake = (make) => {
+    let makeAbrv = make.substring(0, 2);
+
+    let data = JSON.stringify({ "name": make, "abrv": makeAbrv });
+
+    let config = {
+      method: "post",
+      url: "/resources/makes",
+      headers: {
+        "Authorization": "bearer " + localStorage.getItem("authToken"),
+        "Content-Type": "application/json",
       },
-    },
-    meta: {
-      isValid: true,
-      error: null,
-    },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        this.info = true;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 }
 

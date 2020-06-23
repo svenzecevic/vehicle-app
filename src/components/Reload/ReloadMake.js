@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { inject } from "mobx-react";
 
-@inject("modelListStore")
-class SortModelDesc extends Component {
+@inject("makeListStore")
+class Reload extends Component {
   constructor(props) {
     super(props);
-    this.modelListStore = this.props.modelListStore;
+    this.makeListStore = this.props.makeListStore;
   }
 
   render() {
     return (
       <button
-        onClick={this.modelListStore.onSortDesc}
+        onClick={this.makeListStore.onReload}
         className="btn btn-primary"
         data-toggle="button"
         aria-pressed="false"
       >
-        Sort desc
+        Reload
       </button>
     );
   }
 }
 
-export default SortModelDesc;
+export default Reload;

@@ -1,32 +1,34 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddModelForm from "../components/AddModel/AddModelForm";
-import AddModelStore from "../stores/AddMakeStore";
-import ListStore from "../stores/ListStore";
+import AddFormStore from "../stores/AddFormStore";
+import AddModelStore from "../stores/AddModelStore";
+import { withRouter } from "react-router-dom";
 
 @inject(() => ({
-  store: new AddModelStore(),
-  listStore: new ListStore(),
+  store: new AddFormStore(),
+  addModelStore: new AddModelStore(),
 }))
 @observer
 class AddModel extends Component {
   render() {
-    let { store, listStore } = this.props;
+    let { store, addModelStore } = this.props;
     return (
       <div>
         <AddModelForm
           onSubmit={this.onSubmitForm}
           form={store.form}
-          listStore={listStore}
+          addModelStore={addModelStore}
           onChange={store.onFieldChange}
         />
       </div>
     );
   }
 
-  onSubmitForm = (name, id) => {
-    this.props.listStore.submitModel(name);
+  onSubmitForm = (name) => {
+    this.props.addModelStore.submitModel(name);
+    this.props.history.push("/model-list");
   };
 }
 
-export default AddModel;
+export default withRouter(AddModel);

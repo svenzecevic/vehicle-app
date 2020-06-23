@@ -3,23 +3,28 @@ import PropTypes from "prop-types";
 import { observer, inject } from "mobx-react";
 import VehicleMake from "../CarItem/VehicleMake";
 
-@inject("listStore")
+@inject("modelListStore")
 @observer
 class CarList extends Component {
   constructor(props) {
     super(props);
-    this.listStore = this.props.listStore;
+    this.modelListStore = this.props.modelListStore;
   }
 
-  componentDidMount(){
-    this.listStore.getModels()
+  componentDidMount() {
+    this.modelListStore.getModels();
+    this.modelListStore.getPageNum();
+  }
+
+  componentWillUnmount() {
+    this.modelListStore.removePageNum();
   }
 
   render() {
     return (
       <div>
         <li>
-          {this.listStore.currentModels.map((car) => {
+          {this.modelListStore.currentItems.map((car) => {
             return <VehicleMake make={car} />;
           })}
         </li>
