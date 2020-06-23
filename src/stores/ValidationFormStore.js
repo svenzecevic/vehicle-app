@@ -1,7 +1,7 @@
 import GenericFormStore from "./GenericFormStore";
 import { observable } from "mobx";
 
-class AddStore extends GenericFormStore {
+class ValidationFormStore extends GenericFormStore {
   @observable
   form = {
     fields: {
@@ -18,4 +18,4 @@ class AddStore extends GenericFormStore {
   };
 }
 
-export default AddStore;
+export default ValidationFormStore;

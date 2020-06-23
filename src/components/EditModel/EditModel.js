@@ -6,11 +6,8 @@ import classes from "../AddModel/AddModel.module.css";
 
 @observer
 class EditModelForm extends Component {
-  componentDidMount() {
-    this.props.store.getModels();
-  }
   render() {
-    const { form, onChange, store } = this.props;
+    const { form, onChange, store, editModelStore } = this.props;
     const { fields, meta } = form;
 
     return (
@@ -20,12 +17,15 @@ class EditModelForm extends Component {
           onSubmit={this.submit}
         >
           <div>
-            <select onChange={store.filter.bind(this)} defaultValue={"default"}>
+            <select
+              onChange={editModelStore.filter.bind(this)}
+              defaultValue={"default"}
+            >
               <option disabled value="default">
                 Choose a model...
               </option>
               <option>All</option>
-              {store.models.map((opt) => {
+              {editModelStore.itemsList.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>

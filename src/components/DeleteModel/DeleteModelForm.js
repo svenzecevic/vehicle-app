@@ -6,8 +6,8 @@ import classes from "../AddMake/AddMake.module.css";
 @observer
 class DeleteModelForm extends Component {
   render() {
-    const { form, onChange, store } = this.props;
-    const { fields, meta } = form;
+    const { form, deleteModelStore } = this.props;
+    const { meta } = form;
 
     return (
       <div className={classes.add}>
@@ -16,11 +16,14 @@ class DeleteModelForm extends Component {
           onSubmit={this.submit}
         >
           <div>
-            <select onChange={store.filter.bind(this)} defaultValue={"default"}>
+            <select
+              onChange={deleteModelStore.filter.bind(this)}
+              defaultValue={"default"}
+            >
               <option disabled value="default">
                 Choose a model...
               </option>
-              {store.models.map((opt) => {
+              {deleteModelStore.itemsList.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>

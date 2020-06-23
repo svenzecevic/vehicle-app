@@ -1,18 +1,9 @@
 import { action, computed, observable } from "mobx";
 import axios from "../axios-cars";
+import BaseListStore from "../stores/BaseListStore";
 
-class AddModelStore {
-  @observable itemsList = [];
+class AddModelStore extends BaseListStore {
   @observable dropdownMakes = [];
-  @observable filterState = [];
-  @observable info = false;
-
-  @computed get filteredItems() {
-    let filterMatch = new RegExp(this.filterState, "i");
-    return this.itemsList.filter(
-      (car) => !this.filterState || filterMatch.test(car.name)
-    );
-  }
 
   @action
   getMakes = () => {
@@ -25,14 +16,6 @@ class AddModelStore {
         }
       });
     });
-  };
-
-  @action
-  filter = (e) => {
-    let index = e.nativeEvent.target.selectedIndex;
-    let label = e.nativeEvent.target[index].text;
-    this.filterState = label;
-    this.itemsList = this.filteredItems;
   };
 
   @action

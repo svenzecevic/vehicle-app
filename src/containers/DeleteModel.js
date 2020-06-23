@@ -1,33 +1,34 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import EditStore from "../stores/EditStore";
 import DeleteModelForm from "../components/DeleteModel/DeleteModelForm";
-import { withRouter } from "react-router-dom";
+import ValidationFormStore from "../stores/ValidationFormStore";
+import DeleteModelStore from "../stores/DeleteModelStore";
 
 @inject(() => ({
-  store: new EditStore(),
+  store: new ValidationFormStore(),
+  deleteModelStore: new DeleteModelStore(),
 }))
 @observer
 class DeleteModel extends Component {
   componentDidMount = () => {
-    this.props.store.getModels();
+    this.props.deleteModelStore.getModels();
   };
 
   onSubmitForm = () => {
-    this.props.store.handleEdit();
+    this.props.deleteModelStore.handleEdit();
   };
 
   render() {
-    let { store } = this.props;
+    let { store, deleteModelStore } = this.props;
     return (
       <div>
         <DeleteModelForm
           onSubmit={this.onSubmitForm}
           form={store.form}
           onChange={store.onFieldChange}
-          store={store}
+          deleteModelStore={deleteModelStore}
         />
-        {store.info ? (
+        {deleteModelStore.info ? (
           <p className="text-danger">Vehicle model has been deleted!</p>
         ) : null}
       </div>
@@ -35,4 +36,4 @@ class DeleteModel extends Component {
   }
 }
 
-export default withRouter(DeleteModel);
+export default DeleteModel;

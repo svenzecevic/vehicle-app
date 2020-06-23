@@ -1,4 +1,3 @@
-import ListStore from "./ListStore";
 import SessionStore from "./SessionStore";
 import SignUpStore from "./SignUpStore";
 import PasswordForgetStore from "./PasswordForgetStore";
@@ -8,7 +7,6 @@ import BaseListStore from "./BaseListStore";
 
 class RootStore {
   constructor() {
-    this.listStore = new ListStore(this);
     this.sessionStore = new SessionStore(this);
     this.signupStore = new SignUpStore(this);
     this.pwStore = new PasswordForgetStore(this);

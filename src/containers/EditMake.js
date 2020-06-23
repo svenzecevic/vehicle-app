@@ -1,24 +1,29 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import EditMakeForm from "../components/EditMake/EditMake";
-import EditStore from "../stores/EditStore";
+import ValidationFormStore from "../stores/ValidationFormStore";
+import EditMakeStore from "../stores/EditMakeStore";
 
 @inject(() => ({
-  store: new EditStore(),
+  store: new ValidationFormStore(),
+  editMakeStore: new EditMakeStore(),
 }))
 @observer
 class EditMake extends Component {
+  componentDidMount() {
+    this.props.editMakeStore.getMakes();
+  }
   render() {
-    let { store } = this.props;
+    let { store, editMakeStore } = this.props;
     return (
       <div>
         <EditMakeForm
           onSubmit={this.onSubmitForm}
           form={store.form}
-          store={store}
+          editMakeStore={editMakeStore}
           onChange={store.onFieldChange}
         />
-        {store.editMakeInfo ? (
+        {editMakeStore.info ? (
           <p className="text-danger">Vehicle make has been edited!</p>
         ) : null}
       </div>
@@ -26,7 +31,7 @@ class EditMake extends Component {
   }
 
   onSubmitForm = (name) => {
-    this.props.store.submitEditMake(name);
+    this.props.editMakeStore.submitEdit(name);
   };
 }
 

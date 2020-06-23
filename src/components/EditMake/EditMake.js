@@ -6,11 +6,8 @@ import classes from "../AddModel/AddModel.module.css";
 
 @observer
 class EditMakeForm extends Component {
-  componentDidMount() {
-    this.props.store.getMakes();
-  }
   render() {
-    const { form, onChange, store } = this.props;
+    const { form, onChange, editMakeStore } = this.props;
     const { fields, meta } = form;
 
     return (
@@ -21,14 +18,14 @@ class EditMakeForm extends Component {
         >
           <div>
             <select
-              onChange={store.filterMakes.bind(this)}
+              onChange={editMakeStore.filter.bind(this)}
               defaultValue={"default"}
             >
               <option disabled value="default">
                 Choose a make...
               </option>
               <option>All</option>
-              {store.makes.map((opt) => {
+              {editMakeStore.itemsList.map((opt) => {
                 return <option key={opt.id}> {opt.name} </option>;
               })}
             </select>

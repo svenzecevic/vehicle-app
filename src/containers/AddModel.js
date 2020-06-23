@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddModelForm from "../components/AddModel/AddModelForm";
-import AddFormStore from "../stores/AddFormStore";
+import ValidationFormStore from "../stores/ValidationFormStore";
 import AddModelStore from "../stores/AddModelStore";
 import { withRouter } from "react-router-dom";
 
 @inject(() => ({
-  store: new AddFormStore(),
+  store: new ValidationFormStore(),
   addModelStore: new AddModelStore(),
 }))
 @observer

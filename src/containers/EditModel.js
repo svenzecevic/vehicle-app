@@ -1,24 +1,29 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import EditModelForm from "../components/EditModel/EditModel";
-import EditStore from "../stores/EditStore";
+import ValidationFormStore from "../stores/ValidationFormStore";
+import EditModelStore from "../stores/EditModelStore";
 
 @inject(() => ({
-  store: new EditStore(),
+  store: new ValidationFormStore(),
+  editModelStore: new EditModelStore(),
 }))
 @observer
 class EditModel extends Component {
+  componentDidMount() {
+    this.props.editModelStore.getModels();
+  }
   render() {
-    let { store } = this.props;
+    let { store, editModelStore } = this.props;
     return (
       <div>
         <EditModelForm
           onSubmit={this.onSubmitForm}
           form={store.form}
-          store={store}
+          editModelStore={editModelStore}
           onChange={store.onFieldChange}
         />
-        {store.editModelInfo ? (
+        {editModelStore.info ? (
           <p className="text-danger">Vehicle model has been edited!</p>
         ) : null}
       </div>
@@ -26,7 +31,7 @@ class EditModel extends Component {
   }
 
   onSubmitForm = (name) => {
-    this.props.store.submitEditModel(name);
+    this.props.editModelStore.submitEdit(name);
   };
 }
 

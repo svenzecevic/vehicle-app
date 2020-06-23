@@ -1,33 +1,34 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import EditStore from "../stores/EditStore";
 import DeleteMakeForm from "../components/DeleteMake/DeleteMakeForm";
-import { withRouter } from "react-router-dom";
+import ValidationFormStore from "../stores/ValidationFormStore";
+import DeleteMakeStore from "../stores/DeleteMakeStore";
 
 @inject(() => ({
-  store: new EditStore(),
+  store: new ValidationFormStore(),
+  deleteMakeStore: new DeleteMakeStore(),
 }))
 @observer
 class DeleteModel extends Component {
   componentDidMount = () => {
-    this.props.store.getMakes();
+    this.props.deleteMakeStore.getMakes();
   };
 
   onSubmitForm = () => {
-    this.props.store.handleEditMake();
+    this.props.deleteMakeStore.handleEdit();
   };
 
   render() {
-    let { store } = this.props;
+    let { store, deleteMakeStore } = this.props;
     return (
       <div>
         <DeleteMakeForm
           onSubmit={this.onSubmitForm}
           form={store.form}
           onChange={store.onFieldChange}
-          store={store}
+          deleteMakeStore={deleteMakeStore}
         />
-        {store.makeInfo ? (
+        {deleteMakeStore.makeInfo ? (
           <p className="text-danger">Vehicle make has been deleted!</p>
         ) : null}
       </div>
@@ -35,4 +36,4 @@ class DeleteModel extends Component {
   }
 }
 
-export default withRouter(DeleteModel);
+export default DeleteModel;

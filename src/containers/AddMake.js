@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import AddMakeStore from "../stores/AddMakeStore";
-import AddFormStore from "../stores/AddFormStore";
+import ValidationFormStore from "../stores/ValidationFormStore";
 import AddMakeForm from "../components/AddMake/AddMakeForm";
 import { withRouter } from "react-router-dom";
 
 @inject(() => ({
-  store: new AddFormStore(),
+  store: new ValidationFormStore(),
   addMakeStore: new AddMakeStore(),
 }))
 @observer
 class AddMake extends Component {
   render() {
-    let { store, addMakeStore } = this.props;
+    let { store } = this.props;
     return (
       <div>
         <AddMakeForm
